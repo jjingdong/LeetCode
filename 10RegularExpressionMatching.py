@@ -70,6 +70,53 @@ class Solution:
     # memo = {} -> matrix
 
     # Solution is done
-    # Code is not done
+    # Code is not done, donot implement '*' solution
 
+    # Recursive approach
+    #     def isMatch(self, s: str, p: str) -> bool:
+
+    #         if s is None or p is None: return None
+
+    #         def compare(s, p):
+    #             print('-------')
+    #             print(s == '')
+    #             print(p == '')
+
+    #             if s == '' and p == '': return True
+    #             if p == '':
+    #                 print('p')
+    #                 return True
+    #             if s == '':
+    #                 print('s')
+    #                 return False
+
+    #             if s[0] == p[0] or p[0] == '.':
+    #                 # Please not forget to use the 'RETURN'
+    #                 return compare(s[1:], p[1:])
+    #             else:
+    #                 return False
+
+    #         return compare(s,p)
+
+    # Iterative approach
     def isMatch(self, s: str, p: str) -> bool:
+
+        if s is None or p is None: return None
+        if s == '' and p == '': return True
+        if s == '' or p == '': return False
+
+        i = 0
+        j = 0
+        while i < len(s) and j < len(p):
+            if s[i] == p[j] or p[j] == '.':
+                i += 1
+                j += 1
+            else:
+                return False
+
+        if i == len(s) and j == len(p): return True
+        if i == len(s) or j == len(p): return False
+
+        return True
+
+
