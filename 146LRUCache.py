@@ -27,6 +27,17 @@
 from collections import OrderedDict
 
 
+# OrderedDict
+#
+# popitem(last=True)¶
+# The popitem() method for ordered dictionaries returns and removes a (key, value)
+# pair. last=True, pop the last. last = False, pop the first.
+#
+# move_to_end(key, last=True)
+# Move an existing key to either end of an ordered dictionary. The item is moved to
+# the right end if last is true (the default) or to the beginning if last is false.
+# Raises KeyError if the key does not exist:
+
 # Time Complexity O(1)
 # Space Complexixty O(capacity)
 class LRUCache(OrderedDict):
