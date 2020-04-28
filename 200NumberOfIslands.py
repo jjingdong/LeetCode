@@ -32,34 +32,25 @@ class Solution:
         if grid is None: return None
         if grid == []: return 0
 
-        length = len(grid)
-        rowLen = len(grid[0])
-
         def traverse(r, c):
-            # nonlocal length
-            # nonlocal rowLen
 
-            if r < 0 or c < 0 or r >= length or c >= rowLen:
+            if r < 0 or c < 0 or r >= len(grid) or c >= len(grid[0]):
                 return
-            elif grid[r][c] == 0 or grid[r][c] == 2:
+            if grid[r][c] == '0':
                 return
-            else:
-                grid[r][c] = 2
-                traverse(r - 1, c)
-                traverse(r, c - 1)
-                traverse(r + 1, c)
-                traverse(r, c + 1)
+
+            grid[r][c] = '0'
+            traverse(r - 1, c)
+            traverse(r, c - 1)
+            traverse(r + 1, c)
+            traverse(r, c + 1)
 
         sum = 0
-        for i in range(length):
-            for j in range(rowLen):
-                print("here")
-                print('i' + str(i) + 'j' + str(j))
-                print(grid)
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
                 if grid[i][j] == '1':
-                    print('i' + str(i) + 'j' + str(j))
-                    traverse(i, j)
                     sum += 1
+                    traverse(i, j)
 
         return sum
 
@@ -95,6 +86,10 @@ class Solution:
 
         return count
 '''
+
+
+
+
 
 
 
