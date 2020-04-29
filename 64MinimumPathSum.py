@@ -39,38 +39,27 @@ class Solution:
     # grid(i,j)=grid(i,j)+min(grid(i+1,j),grid(i,j+1))
     # Using grid to track the results, no additional space
     # Time O(MN) Space O(1)
-    #
-    # Solution is done
-    # Code is not done
-    #
 
     # My solution
-    # Time O() Space O()
+    # Time O(MN) Space O(1)
     def minPathSum(self, grid: List[List[int]]) -> int:
 
-        size = len(grid)
-        rowSize = len(grid[0])
+        def traverse(r, c):
 
-        matrix = [[-1 for x in range(size)] for y in range(rowSize)]
-        sum = 0
-
-        def traverse(curRow, curCol, value):
-
-            # if curCol == size -1 and curRow == rowSize -1:
-            #     return
-            if curCol == size or curRow == rowSize:
+            if r >= len(grid) or c >= len(grid[0]):
                 return
-
-            if matrix[curRow][curCol] == -1:
-                matrix[curRow][curCol] = grid[curRow][curCol] + value
+            if r == 0 and c == 0:
+                grid[r][c] = grid[r][c]
+            elif r == 0:
+                grid[r][c] += grid[r][c - 1]
+            elif c == 0:
+                grid[r][c] += grid[r - 1][c]
             else:
-                matrix[curRow][curCol] = min(matrix[curRow][curCol], grid[curRow][curCol] + value)
+                grid[r][c] += min(grid[r - 1][c], grid[r][c - 1])
 
-            traverse(curRow, curCol + 1, matrix[curRow][curCol])
-            traverse(curRow + 1, curCol, matrix[curRow][curCol])
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                traverse(i, j)
 
-        traverse(0, 0, 0)
-
-        print(matrix)
-        return matrix[size - 1][rowSize - 1]
+        return grid[len(grid) - 1][len(grid[0]) - 1]
 
