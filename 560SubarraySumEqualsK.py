@@ -15,7 +15,13 @@ Note: 
 
 class Solution:
 
-    # Coding is not done, need to debug
+    # Solution I:
+    # Time O(N^2) Space O(N)
+    # nums[i:j] = sum[j+1] - sum[i]
+    #
+    # Solution II:
+    #
+    # Not done? Can I use sliding window????
 
     # Time O(N) Space O(1)
     def subarraySum(self, nums: List[int], k: int) -> int:
@@ -23,35 +29,32 @@ class Solution:
         if nums is None: return None
         if nums == []: return 0
 
-        i = 0
-        j = 0
-        sum = 0
-        count = 0
-        while i <= j and j < len(nums):
+        i, sum, count = 0, 0, 0
+
+        for j in range(len(nums)):
+            print('----------------------')
+            print('step 0')
+            print('i = ' + str(i) + ' j = ' + str(j) + ' sum = ' + str(sum))
 
             sum += nums[j]
-            print('------------------')
-            print(str(i) + " " + str(j))
-            print(sum)
+            print('step 0')
+            print('i = ' + str(i) + ' j = ' + str(j) + ' sum = ' + str(sum))
+
             if sum == k:
                 count += 1
-                if i == j:
-                    i += 1
-                    j += 1
-                    sum = 0
-                elif i < j:
-                    i += 1
-                    sum = sum - nums[i] - nums[j]
-            elif sum < k:
-                j += 1
-            else:
-                if i == j:
-                    i += 1
-                    j += 1
-                    sum = 0
-                elif i < j:
-                    i += 1
-                    sum = sum - nums[i] - nums[j]
+
+                sum = sum - nums[i] - nums[j]
+                i += 1
+                print('step 1')
+                print('i = ' + str(i) + ' j = ' + str(j) + ' sum = ' + str(sum))
+
+            while sum > k:
+                sum = sum - nums[i]
+                i += 1
+                print('step 2')
+                print('i = ' + str(i) + ' j = ' + str(j) + ' sum = ' + str(sum))
 
         return count
+
+
 
