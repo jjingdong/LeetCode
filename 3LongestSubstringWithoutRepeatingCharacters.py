@@ -31,9 +31,8 @@ class Solution:
     # Hashmap to count chars
 
     # Note. this is not optimal solution
-    # Note. Why Time is not N^2
 
-    # Time O() Space O(N)
+    # Time O(N^2) Space O(N)
     def lengthOfLongestSubstring(self, s: str) -> int:
 
         if s is None: return None
