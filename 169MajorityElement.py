@@ -22,27 +22,39 @@ class Solution:
     # The item at index n/2
     # Time O(NlogN) Space O(1)
     #
-    # Solution III: Randomization
-    # Time O(N) Space O(1)
-    #
-    # Solution IV: Divide and Conquer
-    # Time O() Space O()
-    #
     # Solution V: Boyer-Moore Voting Algorithm
     #
-    # [2,2,1,1,1,2,2]
-    #  0 1 0 1 2 2 3
+    #       [7, 7, 5, 7, 5, 1, 5, 7, 5, 5, 7, 7, 7, 7, 7, 7]
+    # count: 1  2  1  2  1  0. 1. 0. 1. 2. 1. 0  1. 2. 3. 4
+    #       [7, 7, 5, 7, 5, 1, 5, 7, 5, 5, 7, 7, 5, 5, 5, 5]
+    # count: 1  2. 1. 2. 1. 0. 1. 0. 1. 2. 1. 0. 1  2. 3. 4
 
-    # Time O() Space O()
+    # Time O(N) Space O(1), Using Boyer-Moore Voting Algorithm
     def majorityElement(self, nums: List[int]) -> int:
 
+        count = 0
+        majority = None
 
-'''
+        for num in nums:
+            if count == 0:
+                majority = num
+            if majority == num:
+                count += 1
+            else:
+                count -= 1
+
+        return majority
+
+
+'''  
     # Time O(NlogN) Space O(1), Using Sort
     def majorityElement(self, nums: List[int]) -> int:
 
         nums = sorted(nums)
         return nums[len(nums)//2]
 '''
+
+
+
 
 
