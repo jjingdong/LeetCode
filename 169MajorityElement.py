@@ -22,7 +22,7 @@ class Solution:
     # The item at index n/2
     # Time O(NlogN) Space O(1)
     #
-    # Solution V: Boyer-Moore Voting Algorithm
+    # Solution III: Boyer-Moore Voting Algorithm
     #
     #       [7, 7, 5, 7, 5, 1, 5, 7, 5, 5, 7, 7, 7, 7, 7, 7]
     # count: 1  2  1  2  1  0. 1. 0. 1. 2. 1. 0  1. 2. 3. 4
@@ -45,6 +45,12 @@ class Solution:
 
         return majority
 
+    # Time O(N) Space O(N), use HashMap
+    def majorityElement(self, nums: List[int]) -> int:
+
+        counts = collections.Counter(nums)
+        return max(counts.keys, key=counts.get)
+
 
 '''  
     # Time O(NlogN) Space O(1), Using Sort
@@ -53,6 +59,7 @@ class Solution:
         nums = sorted(nums)
         return nums[len(nums)//2]
 '''
+
 
 
 
