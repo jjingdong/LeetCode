@@ -31,10 +31,16 @@ Output: False
 
 class Solution:
 
-    # Solution I: Math problem
+    # Solution I: Math
     #
-    # Note. Need to watch video: die hard
+    # Check if z is a multiple of GCD(x,y)
+    # GCD = greatest common divisor
     #
+    # Solution II: BFS
+    #
+    # Note. need to read this: https://leetcode.com/problems/water-and-jug-problem/discuss/83709/Breadth-First-Search-with-explanation.
 
     # Time O() Space O()
     def canMeasureWater(self, x: int, y: int, z: int) -> bool:
+        # from fractions import gcd
+        return z == 0 or x + y >= z and z % gcd(x, y) == 0
