@@ -39,16 +39,21 @@ class Solution:
     # Time O(N) Space O(N), using Cache
     def trap(self, height: List[int]) -> int:
 
+        if height is None: return None
+        if height == []: return 0
+
         size = len(height)
         left = [0] * size
         right = [0] * size
         total = 0
+        left[0] = height[0]
+        right[size - 1] = height[size - 1]
 
         for i in range(1, size):
-            right[i] = max(right[i - 1], height[i])
+            left[i] = max(left[i - 1], height[i])
 
         for j in range(size - 2, -1, -1):
-            left[j] = max(left[j + 1], height[j])
+            right[j] = max(right[j + 1], height[j])
 
         for i in range(size):
             total += max(0, min(left[i], right[i]) - height[i])
