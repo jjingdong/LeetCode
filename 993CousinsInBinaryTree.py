@@ -57,15 +57,28 @@ class Solution:
 # Solution II: DFS
 #
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+
+    # Solution I: BFS
+    #
+    # Solution II: DFS
+    #
+
     # Time O(N) Space O(N)
     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
 
         def BFS(root):
-            queue = [(root, 0, None)]
+            queue = collections.deque([(root, 0, None)])
             found_parent_val = None
             found_depth = None
             while queue != []:
-                node, depth, parent_val = queue.pop(0)
+                node, depth, parent_val = queue.popleft()
 
                 if node.val == x or node.val == y:
                     if found_depth == None:
@@ -86,4 +99,6 @@ class Solution:
 
         if root is None: return None
         return BFS(root)
+
+
 
