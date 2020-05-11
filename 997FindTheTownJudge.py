@@ -56,16 +56,63 @@ trust[i][0] != trust[i][1]
 
 class Solution:
 
-    # Time O(MN) Space O(N)
+    # Solution I: Hash table
+    #
+    # Solution II: Two Arrays
+    #
+    # Solution III: One Array
+
+    # Time O(N) Space O(N), Solution III: One Array
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
 
         if trust is None: return -1
-        if trust == [] and N != 1: return -1
+        if len(trust) < N - 1: return -1
+
+        count = [0] * (N + 1)
+
+        for one, two in trust:
+            count[one] -= 1
+            count[two] += 1
+
+        for i in range(1, N + 1):
+            if count[i] == N - 1:
+                return i
+
+        return -1
+
+
+'''
+    # Time O(N) Space O(N), Solution II: Two Arrays
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+
+        if trust is None: return -1
+        if len(trust) < N - 1: return -1
+
+        vote_to = [0] * (N + 1)
+        be_voted = [0] * (N + 1)
+
+        for one, two in trust:
+            vote_to[one] += 1 
+            be_voted[two] += 1
+
+        for i in range(1, N + 1):
+            if be_voted[i] == N - 1 and vote_to[i] == 0:
+                return i
+
+        return -1
+'''
+
+'''   
+    # Time O(MN) Space O(N), Solution I
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+
+        if trust is None: return -1
+        if trust == [] and N != 1: return -1  
         if len(trust) < N - 1: return -1
 
         if trust == [] and N == 1: return N
 
-        trustees = []
+        trustees = [] 
         trust_count = {}
         for i in range(len(trust)):
             if trust[i][1] not in trust_count:
@@ -88,6 +135,12 @@ class Solution:
             return newTrustees[0]
         else:
             return -1
+'''
+
+
+
+
+
 
 
 
