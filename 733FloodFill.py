@@ -30,7 +30,9 @@ class Solution:
     #
     # Solution II: Iterative
 
-    # Time O(MN) Space O1(), using recursive
+    # using recursive
+    # Time O(MN), MN = no. of pixels in the image
+    # Space O(NM), it's not O(1), because of the call stack
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
 
         if image is None: return None
@@ -83,3 +85,4 @@ class Solution:
         traverse(sr, sc)
         return image
 '''
+
