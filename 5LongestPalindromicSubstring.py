@@ -25,68 +25,105 @@ Output: "bb"
 
 class Solution:
 
-    # Note this is not done --------------> I need to use Dynamic Programming, instead of cacheing!!@@@@@
+    # Solution: DP
+    #
+
+    # Time O(MN) Space O(MN)
     def longestPalindrome(self, s: str) -> str:
-
-        def find(i, j):
-            nonlocal max_count, start
-
-            if cache[i][j] != 0:
-                return cache[i][j]
-            elif i == j:
-                cache[i][j] = 1
-                if max_count < cache[i][j]:
-                    max_count = cache[i][j]
-                    start = i
-                return cache[i][j]
-            elif i == j - 1 and s[i] == s[j]:
-                cache[i][j] = 2
-                if max_count < cache[i][j]:
-                    max_count = cache[i][j]
-                    start = i
-                return cache[i][j]
-            elif s[i] == s[j]:
-                cache[i][j] = 2 + find(i + 1, j - 1)
-                if max_count < cache[i][j]:
-                    max_count = cache[i][j]
-                    start = i
-                return cache[i][j]
-
-            find(i + 1, j)
-            find(i, j - 1)
 
         if s is None: return None
         if s == '': return ''
 
-        max_count = 0
+        cache = [[None for x in range(len(s))] for y in range(len(s))]
+        count = 0
         start = 0
-        cache = [[0 for x in range(len(s))] for y in range(len(s))]
-        find(0, len(s) - 1)
 
-        # print(cache)
-        # print(max_count)
-        # print(start)
+        for i in range(len(s)):
+            cache[i][i] = True
+            count = 1
+            start = i
 
-        return s[start: start + max_count]
+        for i in range(len(s) - 1):
+            if s[i] == s[i + 1]:
+                cache[i][i + 1] = True
+                count = 2
+                start = i
 
-#     # This is not the solution!!
-#     def longestPalindrome(self, s: str) -> str:
+        for j in range(len(s)):
+            for i in range(0, j - 1):
+                if s[i] == s[j] and cache[i + 1][j - 1] == True:
+                    cache[i][j] = True
+                    if count < j - i + 1:
+                        count = j - i + 1
+                        start = i
 
-#         def isPalindrome(s: str) -> str:
-#             reverseS = "".join(reversed(s))
-#             if reverseS == s:
-#                 return True
-#             return False
-
-#         i, j = 0, len(s)
-#         range = s[i:j]
-#         if isPalindrome(range):
-#             return range
-#         else:
-#             return self.longestPalindrome(s[i+1:j]) or self.longestPalindrome(s[i:j-1])
+        return s[start: start + count]
 
 
+'''
+    # Time O(MN) Space O(MN)
+    # Note this runtime is 9596 ms
+    def longestPalindrome(self, s: str) -> str:
 
+        def is_palindrome(i, j):
+            nonlocal start, count
+
+            if cache[i][j] is not None:
+                return cache[i][j]
+            elif i == j: 
+                if count < 1:
+                    count = 1
+                    start = i
+                cache[i][j] = True
+            elif j == i + 1 and s[i] == s[j]: 
+                if count < 2:
+                    count = 2
+                    start = i
+                cache[i][j] = True
+            elif s[i] == s[j]:
+                cache[i][j] = is_palindrome(i+1, j-1)
+                if cache[i][j] == True:
+                    if count < j - i + 1:
+                        count = j - i + 1
+                        start = i
+            else:
+                cache[i][j] = False
+
+            return cache[i][j]
+
+
+        if s is None: return None
+        if s == '': return ''
+
+        cache = [[None for x in range(len(s))] for y in range(len(s))]
+        count = 0
+        start = 0
+
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                is_palindrome(i, j)
+
+        return s[start: start+count]
+'''
+
+'''
+    # This is not the solution!!
+    # This ended up using DFS
+    def longestPalindrome(self, s: str) -> str:
+
+        def isPalindrome(s: str) -> str:
+            reverseS = "".join(reversed(s)) 
+            if reverseS == s: 
+                return True
+            return False
+
+        i, j = 0, len(s)
+        range = s[i:j]
+        if isPalindrome(range): 
+            return range
+        else:
+            return self.longestPalindrome(s[i+1:j]) or self.longestPalindrome(s[i:j-1])
+'''
 
 
 
