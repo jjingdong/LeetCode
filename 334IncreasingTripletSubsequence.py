@@ -14,3 +14,26 @@ Example 2:
 Input: [5,4,3,2,1]
 Output: false
 '''
+
+
+class Solution:
+
+    # Time O() Space O()
+    def increasingTriplet(self, nums: List[int]) -> bool:
+
+        if not nums: return False
+
+        count = 0
+        for i in range(1, len(nums)):
+            if nums[i - 1] < nums[i]:
+                count += 1
+            else:
+                count = 0
+
+            print(count)
+            if count == 2:
+                return True
+
+        return False
+
+
