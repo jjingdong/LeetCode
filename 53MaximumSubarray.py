@@ -12,10 +12,25 @@
 # using the divide and conquer approach, which is more subtle.
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
 
-        # Time O(N)
-        # Space O(N)
+    # Solution I: Time O(N) Space O(N)
+    #
+    # Solution II: Time O(N) Space O(1)
+
+    # Time O(N) Space O(1)
+    def maxSubArray(self, nums: List[int]) -> int:
+        cur_sum = float('-inf')
+        global_sum = float('-inf')
+        for cur in nums:
+            cur_sum = max(cur, cur_sum + cur)
+            global_sum = max(global_sum, cur_sum)
+
+        return global_sum
+
+
+'''
+    #Time O(N) Space O(N)
+    def maxSubArray(self, nums: List[int]) -> int:
         curMaxSum = nums[:]
         globalMaxSum = nums[:]
         startIndex, endIndex = 0, 0
@@ -23,25 +38,22 @@ class Solution:
 
         for i in range(1, len(nums)):
 
-            if nums[i] > curMaxSum[i - 1] + nums[i]:
+            if nums[i] > curMaxSum[i-1] + nums[i]:
                 startIndex = i
 
-            curMaxSum[i] = max(nums[i], curMaxSum[i - 1] + nums[i])
+            curMaxSum[i] = max(nums[i], curMaxSum[i-1] + nums[i])
             if curMaxSum[i] > maxValue:
                 maxValue = curMaxSum[i]
                 endIndex = i
 
-            globalMaxSum[i] = max(globalMaxSum[i - 1], curMaxSum[i])
+            globalMaxSum[i] = max(globalMaxSum[i-1], curMaxSum[i])
 
-            # print(curMaxSum)
-            # print(globalMaxSum)
-            # print("maxValue = " + str(maxValue))
-            # print("start = " + str(startIndex))
-            # print("end = " + str(endIndex))
+        return globalMaxSum[len(nums)-1]
 
-        return globalMaxSum[len(nums) - 1]
+    #Better solution will be
+    #Time O(N)
+    #Space O(1)
+'''
 
-    # Better solution will be
-    # Time O(N)
-    # Space O(1)
+
 
