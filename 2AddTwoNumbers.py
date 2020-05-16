@@ -17,6 +17,12 @@ Explanation: 342 + 465 = 807.
 #         self.val = x
 #         self.next = None
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 class Solution:
 
     # Note. Can make it to Space O(1) if save results in l1
@@ -28,17 +34,27 @@ class Solution:
         carry = 0
         while l1 or l2 or carry:
 
-            sum = 0
+            count = 0
             if l1:
-                sum += l1.val
+                count += l1.val
                 l1 = l1.next
             if l2:
-                sum += l2.val
+                count += l2.val
                 l2 = l2.next
 
-            carry, value = divmod((sum + carry), 10)
+            carry, value = divmod((count + carry), 10)
             l3.next = ListNode(value)
             l3 = l3.next
 
         return head.next
+
+
+
+
+
+
+
+
+
+
 
