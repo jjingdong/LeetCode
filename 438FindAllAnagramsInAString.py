@@ -39,7 +39,7 @@ class Solution:
     #
     # Solution II: value = value * s[i] / s[i-len(p)]
     #
-    # Solution III: dict + sliding window
+    # Solution III: dict
     #
     # Solution IV: two arrays
 
@@ -56,12 +56,10 @@ class Solution:
         p_primes = 1
         for char in p:
             p_primes *= primes[char]
-        print(p_primes)
 
         s_primes = 1
         for j in range(0, len(p)):
             s_primes *= primes[s[j]]
-        print(s_primes)
         if s_primes == p_primes: indexes.append(j - len(p) + 1)
 
         for i in range(len(p), len(s)):
