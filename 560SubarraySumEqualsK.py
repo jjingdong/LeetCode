@@ -16,14 +16,13 @@ Note: 
 class Solution:
 
 
-# Solution I: Brute Force
-# Time limit exceeded
+# Solution I: Brute Force --- Time limit exceeded
 #
-# Note. This one is not done
+# Solution II: HashMap ---> Didn't implement
 
 
 '''
-    # Time O(N^2) Space O(1)
+    # Time O(N^2) Space O(1), using Brute Force
     def subarraySum(self, nums: List[int], k: int) -> int:
 
         if nums is None: return None
@@ -40,6 +39,8 @@ class Solution:
 
         return result
 '''
+
+
 
 
 
