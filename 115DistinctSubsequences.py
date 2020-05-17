@@ -36,3 +36,59 @@ babgbag
 babgbag
     ^^^
 '''
+
+
+class Solution:
+
+    # Solution I: Brute Force --- Time Limit Exceeded
+    #
+    # Solution II: Memorization
+    #
+    # Solution III: Tabulation
+
+    # Time O(MN) Space O(MN), using memorization
+    def numDistinct(self, s: str, t: str) -> int:
+
+        cache = {}
+
+        def find(i, j):
+
+            if j == len(t):
+                return 1
+
+            if i == len(s):
+                return 0
+
+            if (i, j) in cache:
+                return cache[i, j]
+
+            result = find(i + 1, j)
+
+            if s[i] == t[j]:
+                result += find(i + 1, j + 1)
+
+            cache[i, j] = result
+            return result
+
+        return find(0, 0)
+
+
+'''
+    # Time O(MN) Space O(MN), Using Brute Force
+    def numDistinct(self, s: str, t: str) -> int:
+
+        def find(i, j):
+
+            if j == len(t):
+                return 1
+
+            if i == len(s):
+                return 0
+
+            if s[i] == t[j]:
+                return find(i+1, j) + find(i+1, j+1)
+            else:
+                return find(i+1, j)
+
+        return find(0,0)
+'''
