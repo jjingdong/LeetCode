@@ -31,7 +31,31 @@ class Solution:
     #
     # Solution II: DFS
 
-    # Time O(N) Space O(N)
+    # Time O(N) Space O(H), using DFS
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+
+        def traverse(node, level):
+            if not node: return
+
+            if level >= len(results):
+                results.append([node.val])
+            else:
+                if level % 2 == 0:
+                    results[level].append(node.val)
+                else:
+                    results[level] = [node.val] + results[level]
+
+            traverse(node.left, level + 1)
+            traverse(node.right, level + 1)
+
+        if not root: return []
+        results = []
+        traverse(root, 0)
+        return results
+
+
+'''
+    # Time O(N) Space O(N), using BFS
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
 
         if not root: return []
@@ -58,3 +82,5 @@ class Solution:
                 queue.append((node.right, level + 1))
 
         return results
+'''
+
