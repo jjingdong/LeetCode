@@ -28,6 +28,7 @@ Note:
 	3.	There will be at most 150000 calls to StockSpanner.next across all test cases.
 	4.	The total time limit for this problem has been reduced by 75% for C++, and 50% for all other languages.
 '''
+import collections
 
 
 class StockSpanner:
@@ -43,7 +44,7 @@ class StockSpanner:
     #         [(100, 1), (85,6)]
 
     def __init__(self):
-        self.stack = []
+        self.stack = collections.deque([])
 
     # Time O(N) Space O(N)
     def next(self, price: int) -> int:
