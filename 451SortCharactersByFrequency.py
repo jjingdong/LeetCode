@@ -41,7 +41,8 @@ Note that 'A' and 'a' are treated as two different characters.
 
 class Solution:
 
-    # Time O(NlogN) Space O(N)
+    # Time O(N) Space O(1), not Time O(NlogN) Space O(N)
+    # Not counting output size in your space analyses. Also sorting a dict with 26 keys can be considered constant time—learned
     def frequencySort(self, s: str) -> str:
         result = ''
         count_dict = collections.Counter(s)
