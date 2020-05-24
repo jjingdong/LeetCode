@@ -37,20 +37,44 @@ class Solution:
     # Solution I: recursion
     #
     # Solution II: iteration
-    #
-    # Note the solution is hard to understand, I need to review it again
 
-    # Time O(N) Space O(N)
+    # Time O(N^2) Space O(1), runtime = 40 ms
+    def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+
+        if not preorder: return None
+
+        root = TreeNode(preorder[0])
+        stack = collections.deque([root])
+
+        size = len(preorder)
+        for i in range(1, size):
+            node = stack[-1]
+            child = TreeNode(preorder[i])
+
+            while stack and stack[-1].val < child.val:
+                node = stack.pop()
+
+            if node.val < child.val:
+                node.right = child
+            else:
+                node.left = child
+
+            stack.append(child)
+
+        return root
+
+
+'''
+    # Time O(N) Space O(N), using recursion, runtime = 36 ms
     def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
 
         def traverse(lower=float('-inf'), upper=float('inf')):
             nonlocal i
 
-            if i == size: return None
+            if i == len(preorder): return
 
             value = preorder[i]
-            if value < lower or value > upper:
-                return None
+            if value < lower or value > upper: return
 
             i += 1
             root = TreeNode(value)
@@ -58,14 +82,9 @@ class Solution:
             root.right = traverse(value, upper)
             return root
 
-        if preorder is None: return None
+
+        if not preorder: return None
         i = 0
-        size = len(preorder)
         return traverse()
-
-
-
-
-
-
+'''
 
