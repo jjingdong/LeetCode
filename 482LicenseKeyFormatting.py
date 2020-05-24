@@ -26,19 +26,33 @@
 
 class Solution:
 
-    # 5F3Z-2e-9-w -> 5F3Z2e9w -> 5F3Z2E9W
-    # Time O(N), Space O(N)
+    # 5F3Z-2e-9-w -> 5F3Z-2E9W
 
-    # Time O(N)
-    # Space O(N)
+    # Time O(N) Space(1), runtime = 48 ms
+    def licenseKeyFormatting(self, S: str, K: int) -> str:
+
+        key = ''
+        S = S.replace('-', '').upper()
+        carry = len(S) % K
+        for i in range(len(S)):
+            if i != 0 and i % K == carry:
+                key += '-'
+
+            key += S[i]
+
+        return key
+
+
+'''
+    # Time O(N) Space O(N), runtime = 76 ms, done in 2019
     def licenseKeyFormatting(self, S: str, K: int) -> str:
 
         results = ""
         for i in range(len(S)):
-            char = S[i]  # char = w
+            char = S[i] #char = w
 
             if char != '-':
-                results += char.upper()  # results = w9e2
+                results += char.upper() #results = w9e2
 
         no = len(results) % K
         newResults = ""
@@ -48,3 +62,4 @@ class Solution:
             newResults += results[i]
 
         return newResults
+'''

@@ -25,7 +25,7 @@ Output: 3
 class Solution:
 
     # DFS
-    # Time O(MN) Space O(1) -> no extra space used
+    # Time O(MN) Space O(1)
     def numIslands(self, grid: List[List[str]]) -> int:
 
         if grid is None: return None
