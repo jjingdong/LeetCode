@@ -15,14 +15,52 @@ Note: 
 
 class Solution:
 
+    # Solution I: Cumulated Sum --- Time Limit exceeded
+    # sum[i:j] = accumulated_sum[j] - accumulated_sum[i-1]
+    #
+    # Solution II: HashMap ---> Didn't implement
 
-# Solution I: Brute Force --- Time limit exceeded
-#
-# Solution II: HashMap ---> Didn't implement
+    # Time O(N) Space O(N), runtime = 140 ms
+    def subarraySum(self, nums: List[int], k: int) -> int:
+
+        sum_count_dict = {0: 1}
+        s, count = 0, 0
+        for n in nums:
+            s += n
+            if s - k in sum_count_dict:
+                count += sum_count_dict[s - k]
+            if s in sum_count_dict:
+                sum_count_dict[s] += 1
+            else:
+                sum_count_dict[s] = 1
+        return count
 
 
 '''
-    # Time O(N^2) Space O(1), using Brute Force
+    # Time O(N^2) Space O(N), TLE
+    def subarraySum(self, nums: List[int], k: int) -> int:
+
+        result = 0
+        value = 0
+        sums = nums[:]
+        for i in range(1, len(nums)):
+            sums[i] = sums[i-1] + nums[i]
+
+        count = 0
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                if i == 0:
+                    count = sums[j]
+                else:
+                    count = sums[j] - sums[i-1]
+                if count == k:
+                    result += 1
+
+        return result
+'''
+
+'''
+    # Time O(N^2) Space O(1), TLE
     def subarraySum(self, nums: List[int], k: int) -> int:
 
         if nums is None: return None
@@ -33,15 +71,10 @@ class Solution:
             i = start
             while i <= len(nums) - 1:
                 count += nums[i]
-                if count == k:
+                if count == k: 
                     result += 1
                 i += 1
 
         return result
 '''
-
-
-
-
-
 
