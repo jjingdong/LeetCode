@@ -20,6 +20,14 @@ Output:
 
 class Solution:
 
+    #               1, 2, 3
+    #     i=0           i=1          i=2
+    #      1             2            3
+    #   i=1  i=2      i=1  i=2    i=1  i=2
+    #   12   13        21   23     31   32
+    #   i=2  i=1      i=2  i=0    i=1  i=0
+    #   123  132      213  231    312  321
+
     # Time O(N!) Space O(N!)
     def permute(self, nums: List[int]) -> List[List[int]]:
 
@@ -35,5 +43,6 @@ class Solution:
         results = []
         mutation([], nums)
         return results
+
 
 
