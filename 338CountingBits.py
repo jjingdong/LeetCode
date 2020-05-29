@@ -21,7 +21,7 @@ class Solution:
     # Brian Kernighan's algorithm which is applied to turn off the rightmost bit of one in a number.
     # a & (a-1)
 
-    # Time O(N) Space O(1), runtime = 20.6 ms
+    # Time O(N) Space O(1), runtime = 80 ms
     def countBits(self, num: int) -> List[int]:
         results = [0] * (num + 1)
         for i in range(1, num + 1):
@@ -31,16 +31,13 @@ class Solution:
         return results
 
 
-'''   
-    # Time O(MN) Space O(N), runtime = 276 ms
+'''  
+    # Time O(NM) Space O(1), runtime = 84 ms
     def countBits(self, num: int) -> List[int]:
 
-        results = []
+        results = [0] * (num + 1)
         for i in range(num + 1):
-            count = 0
-            for digit in bin(i)[2:]:
-                count += int(digit)
-            results.append(count)
+            results[i] = bin(i).count('1')
 
         return results
-'''
+'''         
