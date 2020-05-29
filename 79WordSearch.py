@@ -27,7 +27,7 @@ Accepted
 
 class Solution:
 
-    # Time O(MN * 4^K), K=len(word), Space O(4^L)
+    # Time O(MN * 4^K), K=len(word), Space O(K)
     def exist(self, board: List[List[str]], word: str) -> bool:
 
         def traverse(row, col, index):
