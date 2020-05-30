@@ -40,4 +40,4 @@ class Solution:
             results[i] = bin(i).count('1')
 
         return results
-'''         
+'''
