@@ -34,8 +34,27 @@
 #         self.left = None
 #         self.right = None
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution:
+
+    # Time O(N) Space O(N)
     def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root: return None
+
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
+        return root
+
+
+'''
+    # Time O(N) Space O(N)
+    def invertTree(self, root: TreeNode) -> TreeNode:
+
         if root is None: return
 
         root.left, root.right = root.right, root.left
@@ -43,7 +62,5 @@ class Solution:
         self.invertTree(root.right)
 
         return root
+'''
 
-# Note. this is also correct solution
-# root.left, root.right = \
-#     self.invertTree(root.right), self.invertTree(root.left)
