@@ -22,14 +22,17 @@ class Solution:
     #
     # Solution III: QuickSelect
 
-    # Worse Time O(N^2), average O(NlogK)
-    # Space Worse O(N), average O(logN)
+    # Time Worse O(N^2), average O(NlogK)
+    # Space O(1)
+    # runtime = 2252 ms
     def findKthLargest(self, nums: List[int], k: int) -> int:
 
-        def divide(start, end):
-            if (start >= end):
-                return
+        if not nums or not k: return None
+        if k > len(nums): return None
+        kk = len(nums) - k
 
+        start, end = 0, len(nums) - 1
+        while start < end:
             mid = start
             pivot = end
             for i in range(start, end):
@@ -38,15 +41,45 @@ class Solution:
                     mid += 1
 
             nums[mid], nums[pivot] = nums[pivot], nums[mid]
-            if mid == len(nums) - k:
-                return
-            divide(start, mid - 1)
-            divide(mid + 1, end)
+            if mid == kk:
+                return nums[kk]
+            elif mid > kk:
+                end = mid - 1
+            else:
+                start = mid + 1
 
-        if not nums or not k: return None
+        return nums[kk]
+
+
+'''
+    # Worse Time O(N^2), average O(NlogK)
+    # Space O(1)
+    # runtime = 2192 ms
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+
+        def divide(start, end):
+            if (start >= end):
+                return
+
+            mid = start
+            pivot = end
+            for i in range(start, end):              
+                if nums[i] < nums[pivot]:
+                    nums[i], nums[mid] = nums[mid], nums[i]
+                    mid += 1
+
+            nums[mid], nums[pivot] = nums[pivot], nums[mid]
+            if mid == kk:
+                return
+            elif mid > kk:
+                divide(start, mid - 1)
+            else:
+                divide(mid + 1, end)
+
+        if not nums or not k:return None
         if k > len(nums): return None
+        kk = len(nums) - k
 
         divide(0, len(nums) - 1)
-        return nums[len(nums) - k]
-
-
+        return nums[kk]
+'''
