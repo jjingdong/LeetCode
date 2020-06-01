@@ -48,7 +48,7 @@ class Solution:
             else:
                 start = mid + 1
 
-        return nums[kk]
+        return None
 
 
 '''
