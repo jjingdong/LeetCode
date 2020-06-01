@@ -62,7 +62,7 @@ class Solution:
 
 
 '''    
-    # Time O(1/2*N + 1/2*3^N), N = length of the shortest word, Space O(1/2*N + 1/2*3^N), 
+    # Time O(MN), Space O(MN), 
     # runtime = 236 ms
     # Using cache
     def minDistance(self, word1: str, word2: str) -> int:
@@ -96,7 +96,7 @@ class Solution:
 '''
 
 '''
-    # Time O(1/2*N + 1/2*3^N), N = length of the shortest word, Space O(1/2*N + 1/2*3^N), 
+    # Time O(MN), Space O(MN), 
     # runtime = 288 ms
     # Using cache
     def minDistance(self, word1: str, word2: str) -> int:
@@ -128,7 +128,7 @@ class Solution:
 '''
 
 '''    
-    # Time O(3^N), N = length of the shortest word, Space O(3^N), 
+    # Time O(3^N + N) Space O(3^N + N), 
     # Using Brute Force, time limit exceeded
     def minDistance(self, word1: str, word2: str) -> int:
 
