@@ -22,8 +22,8 @@ class Solution:
     #
     # Solution III: QuickSelect
 
-    # Worse O(N^2), average O(NlogN)
-    # Worse Time O(NlogK, average O(logN)
+    # Worse Time O(N^2), average O(NlogK)
+    # Space Worse O(N), average O(logN)
     def findKthLargest(self, nums: List[int], k: int) -> int:
 
         def divide(start, end):
