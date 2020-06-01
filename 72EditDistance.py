@@ -128,7 +128,7 @@ class Solution:
 '''
 
 '''    
-    # Time O(3^N + N) Space O(3^N + N), 
+    # Time O(3^N) Space O(3^N), 
     # Using Brute Force, time limit exceeded
     def minDistance(self, word1: str, word2: str) -> int:
 
