@@ -33,6 +33,8 @@ Follow up:
 
 class Solution:
 
+# Note. Didn't solve the infinite board problem
+
     # Time O(MN) Space O(1), runtime = 36 ms
     def gameOfLife(self, board: List[List[int]]) -> None:
 
