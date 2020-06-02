@@ -33,7 +33,7 @@ Follow up:
 
 class Solution:
 
-# Note. Didn't solve the infinite board problem
+    # Note. Didn't solve the infinite board problem
 
     # Time O(MN) Space O(1), runtime = 36 ms
     def gameOfLife(self, board: List[List[int]]) -> None:
@@ -54,9 +54,9 @@ class Solution:
                         if board[r][c] == 1 or board[r][c] == live_to_die:
                             sum += 1
 
-                if (board[i][j] == 1 or board[i][j] == live_to_die) and (sum < 2 or sum > 3):
+                if board[i][j] in (1, live_to_die) and sum not in (2, 3):
                     board[i][j] = live_to_die
-                elif (board[i][j] == 0 or board[i][j] == die_to_live) and sum == 3:
+                elif board[i][j] in (0, die_to_live) and sum == 3:
                     board[i][j] = die_to_live
 
         for i in range(size):
