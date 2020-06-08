@@ -13,8 +13,6 @@ Easy
 class Solution:
 
     # Time: O(NlogN)
-    # Note. Python build-in sort complexity is O(NlogN
-    # Note. code took O(N)
     # Space: O(1)
     def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
 
