@@ -1,3 +1,4 @@
+'''
 252. Meeting Rooms
 Easy
 
@@ -9,7 +10,7 @@ Easy
 # Input: [[7,10],[2,4]]
 # Output: true
 # NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
-
+'''
 class Solution:
 
     # Time: O(NlogN)
