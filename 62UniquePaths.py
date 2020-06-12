@@ -36,16 +36,30 @@ class Solution:
     # matrix[][0] = 1
     # matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
 
+    # Time O(MN) Space O(N), runtime = 28 ms
+    def uniquePaths(self, m: int, n: int) -> int:
+
+        dp = [1] * m
+
+        for i in range(n - 1):
+            for j in range(1, m):
+                dp[j] += dp[j - 1]
+
+        return dp[-1]
+
+
+'''
+    # Time O(MN) Space O(MN), runtime 32 ms
     def uniquePaths(self, m: int, n: int) -> int:
 
         matrix = [[1 for i in range(n)] for j in range(m)]
-        print(matrix)
 
         for i in range(1, m):
             for j in range(1, n):
-                matrix[i][j] = matrix[i - 1][j] + matrix[i][j - 1]
+                matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
 
-        return matrix[m - 1][n - 1]
+        return matrix[-1][-1]
+'''
 
 # ------------------------------------------------------
 # Solution II
