@@ -18,6 +18,11 @@ Follow up:
 class Solution:
 
     # Solution I: Dutch National Flag Problem
+    #          p0             p2
+    #          |              |
+    #    0, 0 [2, 0, 2, 1, 1, 0] 2, 2
+    #          |
+    #          i
 
     # Time O(N) Space O(1), runtime = 20 ms
     def sortColors(self, nums: List[int]) -> None:
@@ -42,3 +47,4 @@ class Solution:
             else:
                 swap(index, p2)
                 p2 -= 1
+
