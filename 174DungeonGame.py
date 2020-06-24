@@ -35,25 +35,25 @@ class Solution:
     #         brute force: dfs or bfs
     #         dynamic programming: only right and down
 
-    # Time O() Space O()    ----> dp(1) is not done
+    # Time O(MN) Space O(N), runtime = 72 ms
     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
 
         if not dungeon or not dungeon[0]: return dungeon
 
         size = len(dungeon)
         col_size = len(dungeon[0])
-        dp = [None] * size
-
-        dp[size - 1] = max(1, dungeon[size - 1][col_size - 1] * (-1) + 1)
-        # print(dp)
-        for i in range(size - 2, -1, -1):
-            for j in range(col_size - 2, -1, -1):
-                dp[i] = max(1, min(dungeon[i + 1][j], dungeon[i][j + 1]) - dungeon[i][j])
+        dp = [float(inf)] * (col_size + 1)
+        dp[col_size] = 1
+        dp[col_size - 1] = 1
+        for i in range(size - 1, -1, -1):
+            dp[col_size] = dp[col_size - 1]
+            for j in range(col_size - 1, -1, -1):
+                dp[j] = max(1, min(dp[j + 1], dp[j]) - dungeon[i][j])
 
         return dp[0]
 
 
-'''   
+'''
     # Time O(MN) Space O(1), runtime = 76 ms
     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
 
@@ -73,4 +73,3 @@ class Solution:
 
         return dungeon[0][0]
 '''
-
