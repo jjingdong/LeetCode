@@ -40,23 +40,36 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 #         self.right = right
 class Solution:
 
+    #     4
+    #    / \
+    #   9   0
+    #  / \
+    # 5   1
+    #
+    #     4->9->5 = 495
+    #     4->9->1 = 491
+    #     4->0 = 40
+    #     sum = 495 + 491 + 40 = 1026
+    #     finding all the path from root to left
+
     # Time O(N) Space O(H)
     def sumNumbers(self, root: TreeNode) -> int:
 
-        def traverse(cur_node, local_sum):
+        def dfs(node, parent_val):
             nonlocal sum
 
-            if cur_node is None: return None
+            if not node:
+                return 0
 
-            local_sum = local_sum * 10 + cur_node.val
+            parent_val = parent_val * 10 + node.val
 
-            if cur_node.left is None and cur_node.right is None:
-                sum += local_sum
+            if not node.left and not node.right:
+                sum += parent_val
 
-            traverse(cur_node.left, local_sum)
-            traverse(cur_node.right, local_sum)
+            dfs(node.left, parent_val)
+            dfs(node.right, parent_val)
 
-        if root is None: return 0
         sum = 0
-        traverse(root, 0)
+        if not root: return 0
+        dfs(root, 0)
         return sum
