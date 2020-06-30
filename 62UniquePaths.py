@@ -20,86 +20,32 @@
 
 class Solution:
 
-    # Dynamic Programming:
-    # Tabulation:
-    # 3 x 2:
-    # [
-    # [0,0]
-    # [0,0]
-    # [0,0]]
-
-    # Path: 1, 1
-    #       1, 2
-    #       1, 3
-
-    # matrix[0][] = 1
-    # matrix[][0] = 1
-    # matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
-
-    # Time O(MN) Space O(N), runtime = 28 ms
-    def uniquePaths(self, m: int, n: int) -> int:
+    # Time O(MN) Space O(M), runtime = 20 ms
+    def uniquePaths(self, m, n):
 
         dp = [1] * m
-
-        for i in range(n - 1):
+        for i in range(1, n):
             for j in range(1, m):
                 dp[j] += dp[j - 1]
 
         return dp[-1]
 
 
+'''   
+    # Time O(MN) Space O(MN), runtime = 20 ms
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+
+        dp = [[None for _ in range(m)] for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if i == 0 or j == 0:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[-1][-1]   
 '''
-    # Time O(MN) Space O(MN), runtime 32 ms
-    def uniquePaths(self, m: int, n: int) -> int:
-
-        matrix = [[1 for i in range(n)] for j in range(m)]
-
-        for i in range(1, m):
-            for j in range(1, n):
-                matrix[i][j] = matrix[i-1][j] + matrix[i][j-1]
-
-        return matrix[-1][-1]
-'''
-
-# ------------------------------------------------------
-# Solution II
-# m: row
-# n: column
-# m x n: row x column
-# 2 x 2: [[0, 0],
-#         [0, 0]]
-# 3 x 2: [[0,0][0,0][0,0]]
-# matrix[3][2] = 0
-# matrix.size = 3
-# matrix[0].size = 2
-
-# Time O(NM)
-# Space O(NM)
-
-#     def uniquePaths(self, m: int, n: int) -> int:
-
-#         matrix = [[0 for i in range(m)] for j in range(n)]
-
-#         def traverse(m, n):
-
-#             if m < 0 or m >= len(matrix) or n < 0 or n >= len(matrix[0]):
-#                 return 0
-
-#             if m == len(matrix) - 1 and n == len(matrix[0]) - 1:
-#                 return 1
-
-#             if matrix[m][n] == 1:
-#                 return 0
-
-#             sum = 0
-
-#             matrix[m][n] = 1
-#             sum += traverse(m+1, n)
-#             sum += traverse(m, n+1)
-#             matrix[m][n] = 0
-
-#             return sum
-
-
-#         return traverse(0,0)
-
