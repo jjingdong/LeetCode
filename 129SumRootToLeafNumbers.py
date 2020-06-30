@@ -52,11 +52,37 @@ class Solution:
     #     sum = 495 + 491 + 40 = 1026
     #     finding all the path from root to left
 
+    # Time O(N) Space O(1), this is not working
+    def sumNumbers(self, root: TreeNode) -> int:
+
+        cur = root
+        count = 0
+        while cur:
+            if not cur.left:
+                count = count * 10 + cur.val
+                cur = cur.right
+            else:
+                pre = cur.left
+                while pre.right and pre.right != cur:
+                    pre = pre.right
+
+                if not pre.right:
+                    count = count * 10 + cur.val
+                    pre.right = cur
+                    cur = cur.left
+                else:
+                    pre.right = None
+                    count = count // 10
+                    cur = cur.right
+        return count
+
+
+'''  
     # Time O(N) Space O(H)
     def sumNumbers(self, root: TreeNode) -> int:
 
         def dfs(node, parent_val):
-            nonlocal sum
+            nonlocal count
 
             if not node:
                 return 0
@@ -64,12 +90,15 @@ class Solution:
             parent_val = parent_val * 10 + node.val
 
             if not node.left and not node.right:
-                sum += parent_val
+                count += parent_val
 
             dfs(node.left, parent_val)
             dfs(node.right, parent_val)
 
-        sum = 0
+        count = 0
         if not root: return 0
         dfs(root, 0)
-        return sum
+        return count
+'''
+
+
