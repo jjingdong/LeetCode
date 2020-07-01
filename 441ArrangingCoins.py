@@ -46,23 +46,19 @@ class Solution:
     #
     #
 
-    # Time O(logN) Space O(1)
+    # Time O(logN) Space O(1), runtime = 36 ms
     def arrangeCoins(self, n: int) -> int:
-        left, right = 0, n
-        k = None
-        curr = None
-        while left <= right:
 
-            k = (right + left) // 2
-            curr = k * (k + 1) // 2
-            print(f'left = {left} right = {right} k = {k} curr = {curr}')
-            if curr == n:
-                return k
-            if n < curr:
-                right = k - 1
+        lo, hi = 0, n
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            if mid * (mid + 1) // 2 == n:
+                return mid
+            if mid * (mid + 1) // 2 > n:
+                hi = mid - 1
             else:
-                left = k + 1
-        return right
+                lo = mid + 1
+        return hi
 
 
 '''
