@@ -19,19 +19,28 @@ Explanation: The array represents the integer 4321.
 
 class Solution:
 
-    # Time O(N) Space O(1)
+    #          9 9 9
+    #        1 0 0 0
+    #
+    #          9 9 10
+    #          9 10 0
+    #          10 0 0
+    #         1 0 0 0
+
+    # Time O(N) Space O(1), runtime = 20 ms
     def plusOne(self, digits: List[int]) -> List[int]:
 
         carry = 1
         for i in range(len(digits) - 1, -1, -1):
+            value = digits[i] + carry
+            carry, digits[i] = divmod(value, 10)
 
-            digits[i] += carry
-            if digits[i] >= 10:
-                digits[i] = digits[i] % 10
-                carry = 1
-                if i == 0:
-                    digits = [1] + digits
-            else:
-                carry = 0
+        if carry == 1:
+            return [1] + digits
+        else:
+            return digits
 
-        return digits
+
+
+
+
