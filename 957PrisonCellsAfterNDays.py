@@ -47,41 +47,66 @@ class Solution:
     # Day 6: [0, 0, 1, 0, 1, 1, 0, 0]
     # Day 7: [0, 0, 1, 1, 0, 0, 0, 0]
 
-    # Time O(min(N, 2^K)) Space O(K* 2^K ), using cache, runtime = 68 ms
+    # Time O(min(N, 2^K)) Space O(K* 2^K ), using cache, runtime = 48 ms
     def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
 
         cache_day = collections.defaultdict(list)
-        cache = collections.defaultdict(int)
+        cache = collections.Counter()
+        noDays = 0
+        size = len(cells)
+        while noDays < N:
+
+            temp = [0] * size
+            for i in range(1, size - 1):
+                if cells[i - 1] == cells[i + 1]:
+                    temp[i] = 1
+            cells = temp
+            noDays += 1
+
+            if tuple(cells) in cache:
+                break
+            else:
+                cache[tuple(cells)] = noDays
+                cache_day[noDays] = cells
+
+        if noDays == N:
+            return cells
+
+        start_day = cache[tuple(cells)]
+        cycle_len = noDays - start_day
+        final_day = (N - start_day) % cycle_len + start_day
+        return cache_day[final_day]
+
+
+'''
+    # Time O(min(N, 2^K)) Space O(K* 2^K ), using cache, runtime = 64 ms
+    def prisonAfterNDays(self, cells: List[int], N: int) -> List[int]:
+
+        cache_day = collections.defaultdict(list)
+        cache = collections.Counter()
         arr = [0] * len(cells)
         noDays = 0
-        cycle_len = None
-        final_day = None
         for j in range(N):
-            for i in range(len(cells)):
-
-                if i == 0 or i == len(cells) - 1:
-                    arr[i] = 0
-                elif cells[i - 1] == cells[i + 1]:
+            for i in range(1, len(cells)-1):
+                if cells[i-1] == cells[i+1]:
                     arr[i] = 1
-                else:
-                    arr[i] = 0
             cells = arr
             noDays += 1
 
             if tuple(cells) in cache:
                 start_day = cache[tuple(cells)]
                 cycle_len = noDays - start_day
-                final_day = (N - start_day) % cycle_len + start_day
+                final_day = (N-start_day) % cycle_len + start_day
                 return cache_day[final_day]
 
             else:
                 cache[tuple(cells)] = noDays
-                cache_day[noDays] = cells
+                cache_day[noDays] = cells     
 
             arr = [0] * len(cells)
 
-        return cells
-
+        return cells 
+'''
 
 '''    
     # Time O(MN) Space O(N), Time Limit Exceeded
