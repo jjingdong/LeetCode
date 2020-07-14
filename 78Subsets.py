@@ -54,30 +54,60 @@ class Solution:
     # . . .
     # . . .
 
+    # Time O(2^N * N) Space O(2^N * N), using bitmask, runtime = 40 ms, solution from Hugh
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        # masks = [1, 2, 4, 8] when nums = [1, 2, 3, 4]
+        masks = [1 << i for i in range(n)]
+        results = []
+        for i in range(1 << n):
+            value = []
+
+            value = [num for mask, num in zip(masks, nums) if i & mask]
+            results.append(value)
+
+        return results
+
+
+''' 
+    # Time O(2^N * N) Space O(2^N * N), using bitmask, runtime = 40 ms
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+
+        n = len(nums)
+        results = []
+        for i in range(2**n, 2**(n+1)):
+            bitmask = bin(i)[3:] 
+
+            value = [num for num, mask in zip(nums, bitmask) if mask == '1']           
+            results.append(value)
+
+        return results
+'''
+
+'''    
     # Time O(2^N * N) Space O(2^N * N), using bitmask, runtime = 36 ms
     def subsets(self, nums: List[int]) -> List[List[int]]:
 
         n = len(nums)
-        output = []
-        for i in range(2 ** n, 2 ** (n + 1)):
+        results = []
+        for i in range(2**n, 2**(n+1)):
             bitmask = bin(i)[3:]
 
             value = []
             for j in range(n):
                 if bitmask[j] == '1':
                     value.append(nums[j])
-            output.append(value)
 
-        return output
+            results.append(value)
 
+        return results
+'''
 
 '''
-    # Time O(N * 2^N) Space O(N * 2^N), Using backtracking, runtime = 32 ms
+    # Time O(N * 2^N) Space O(N * 2^N), Using backtracking, runtime = 60 ms
     def subsets(self, nums: List[int]) -> List[List[int]]:
 
-        if nums is None: return None
-
-        results = []
+        if not nums: return []
 
         def traverse(build, index):
 
@@ -88,13 +118,8 @@ class Solution:
             traverse(build, index+1)
             traverse(build + [nums[index]], index+1)
 
+        results = []
         traverse([], 0)
-        return results
+        return results        
 '''
-
-
-
-
-
-
 
