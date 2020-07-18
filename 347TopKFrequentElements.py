@@ -26,39 +26,30 @@ class Solution:
     #
     # Solution III: quickselect
 
-    #     # Time O(N^2), average O(NlogK)
-    #     # Space O(N), average O(logN)
-    #     # This is not done
-    #     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    # Time O(NlogN) Space O(N), runtime = 108 ms
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        c = collections.Counter(nums).most_common(k)
+        return [v1 for v1, _ in c]
 
-    #         def divide(start, finish):
-    #             if (start >= finish):
-    #                 return
 
-    #             mid = start
-    #             pivot = finish
-    #             for i in range(start, finish):
-    #                 if nums[i] < nums[pivot]:
-    #                     nums[i], nums[mid] = nums[mid], nums[i]
-    #                     mid += 1
+'''
+    # Time O(NlogN) Space O(N), runtime = 180 ms      
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
-    #             nums[mid], nums[pivot] = nums[pivot], nums[mid]
+        c = collections.Counter(nums)
+        results = []
+        for (v1,v2) in c.most_common()[:k]:
+            results.append(v1)
+        return results
+'''
 
-    #             if mid == pivot:
-    #                 return
-
-    #             divide(start, mid - 1)
-    #             divide(mid + 1, finish)
-
-    #         divide(0, len(nums) - 1)
-    #         print(nums)
-    #         return nums[len(nums)-k-1:]
-
+'''
     # Time O(NlogK) Space O(N), runtime = 100 ms
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+
         count_dict = collections.Counter(nums)
         return heapq.nlargest(k, count_dict, key=count_dict.get)
-
+'''
 
 '''
     # Time O(NlogN) Space O(N), runtime = 100 ms
@@ -74,4 +65,3 @@ class Solution:
 
         return results
 '''
-
