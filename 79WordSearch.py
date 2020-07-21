@@ -27,16 +27,15 @@ Accepted
 
 class Solution:
 
-    # Time O(MN * 4^K), K=len(word), Space O(K)
+    # Time O(MN * 4^K), K=len(word), Space O(K), runtime = 372 ms
     def exist(self, board: List[List[str]], word: str) -> bool:
 
-        def traverse(row, col, index):
+        def dfs(row, col, index):
             nonlocal found
 
             if index == len(word):
                 found = True
-                return True
-
+                return
             if row < 0 or col < 0 or row >= size or col >= col_size:
                 return
             if board[row][col] != word[index]:
@@ -45,10 +44,9 @@ class Solution:
                 return
 
             board[row][col] = '#'
-            traverse(row + 1, col, index + 1)
-            traverse(row, col + 1, index + 1)
-            traverse(row - 1, col, index + 1)
-            traverse(row, col - 1, index + 1)
+            dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+            for i, j in dirs:
+                dfs(row + i, col + j, index + 1)
             board[row][col] = word[index]
 
         if not board or not word: return False
@@ -56,9 +54,8 @@ class Solution:
         found = False
         size = len(board)
         col_size = len(board[0])
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                traverse(i, j, 0)
+        for i in range(size):
+            for j in range(col_size):
+                dfs(i, j, 0)
 
         return found
-
