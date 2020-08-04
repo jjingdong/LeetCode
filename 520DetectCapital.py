@@ -32,7 +32,7 @@ Note: The input will be a non-empty word consisting of uppercase and lowercase l
 
 class Solution:
 
-    # Time O(1) Space O(1), runtime = 32 ms
+    # Time O(N) Space O(1), runtime = 32 ms
     def detectCapitalUse(self, word: str) -> bool:
         return word.isupper() or word.islower() or word.istitle()
 
