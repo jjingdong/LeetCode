@@ -18,18 +18,37 @@ Follow up: Could you solve it without loops/recursion?
 
 class Solution:
 
-    # Time O(1) Space O(1), runtime = 64 ms
+
+# # Time O(1) Space O(1), runtime = 64 ms
+#     def isPowerOfFour(self, num: int) -> bool:
+
+#         if not num or num < 1: return False
+
+#         #         1               1
+#         #         4             100
+#         #         16          10000
+#         #         64        1000000
+
+#         b = bin(num)[2:]
+#         return len(b)%2 and b.count('1') == 1
+
+
+'''
+    # Time O(1) Space O(1), runtime = 48 ms
     def isPowerOfFour(self, num: int) -> bool:
+
+#         1               1
+#         4             100
+#         16          10000
+#         64        1000000
+#                   1010101
+
+#         num & (1010101) == 0
+
         if not num or num < 1: return False
 
-        #         1               1
-        #         4             100
-        #         16          10000
-        #         64        1000000
-
-        b = bin(num)[2:]
-        return len(b) % 2 and b.count('1') == 1
-
+        return num & (num-1) == 0 and num & 0b10101010101010101010101010101010 == 0
+'''
 
 '''   
     # Time O(1) Space O(1), runtime = 44 ms
