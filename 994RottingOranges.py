@@ -36,50 +36,40 @@ class Solution:
     #
     # Solution II: BFS optimize Space O(1)
 
-    # Time O(MN) Space O(MN), M = no.of row, N = no. of columns
+    # Time O(MN) Space O(1), runtime = 52 ms
     def orangesRotting(self, grid: List[List[int]]) -> int:
 
-        def traverse():
-            nonlocal no_fresh, pre_level
-
-            while queue:
-                r, c, level = queue.popleft()
-                if grid[r][c] == 1:
-                    no_fresh -= 1
-                    grid[r][c] = 2
-
-                    if pre_level != level:
-                        pre_level += 1
-
-                    if r < size - 1:
-                        queue.append((r + 1, c, level + 1))
-                    if c < col_size - 1:
-                        queue.append((r, c + 1, level + 1))
-                    if r > 0:
-                        queue.append((r - 1, c, level + 1))
-                    if c > 0:
-                        queue.append((r, c - 1, level + 1))
-
-            return pre_level if no_fresh == 0 else -1
-
         if not grid: return None
+
         no_fresh = 0
         pre_level = -1
 
-        size = len(grid)
-        col_size = len(grid[0])
-
+        size, col_size = len(grid), len(grid[0])
         queue = collections.deque([])
-        for i in range(size):
-            for j in range(col_size):
-                if grid[i][j] == 2:
-                    queue.append((i, j, 0))
-                    grid[i][j] = 1
-                if grid[i][j] == 1:
+        for r in range(size):
+            for c in range(col_size):
+                if grid[r][c] == 2:
+                    queue.append((r, c, 0))
+                    grid[r][c] = 1
+                if grid[r][c] == 1:
                     no_fresh += 1
 
-        # print(no_fresh)
         if no_fresh == 0:
             return 0
 
-        return traverse()
+        while queue:
+            r, c, level = queue.popleft()
+            if grid[r][c] == 1:
+                grid[r][c] = 2
+                no_fresh -= 1
+
+                if pre_level != level:
+                    pre_level += 1
+
+                directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+                for d1, d2 in directions:
+                    next_r, next_c = r + d1, c + d2
+                    if 0 <= next_r < size and 0 <= next_c < col_size:
+                        queue.append((next_r, next_c, level + 1))
+
+        return pre_level if no_fresh == 0 else -1
