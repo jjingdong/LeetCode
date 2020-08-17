@@ -29,16 +29,6 @@
 # Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
 
 class Solution:
-    '''
-    #Time O(2^N)
-    #Space O(1)
-    def fib(self, N: int) -> int:
-
-        if N == 0: return 1
-        if N == 1: return 1
-
-        return self.fib(N-1) + self.fib(N-2)
-    '''
 
     # Time O(N)
     # Space O(1)
@@ -58,6 +48,17 @@ class Solution:
         if N % 2 == 0:
             return a
         return b
+
+    '''
+    #Time O(2^N)
+    #Space O(1)
+    def fib(self, N: int) -> int:
+
+        if N == 0: return 1
+        if N == 1: return 1
+
+        return self.fib(N-1) + self.fib(N-2)
+    '''
 
     '''
     # Time O(N) Space O(N)
@@ -86,16 +87,3 @@ class Solution:
         self.cache[N] = self.memoize(N-1) + self.memoize(N-2)
         return self.memoize(N)
     '''
-
-
-
-
-
-
-
-
-
-
-
-
-
