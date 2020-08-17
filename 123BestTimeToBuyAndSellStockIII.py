@@ -45,7 +45,7 @@ class Solution:
     #
     #             3,  3,  5,  0,  0,  3,  1,  4
     #     index = 0   1   2   3   4   5   6   7
-    #    
+    #
     #     if no of transactions are not limited:
     #
     #         5 - 3 = 2
