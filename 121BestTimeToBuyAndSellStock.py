@@ -21,23 +21,40 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
 '''
 
+
 class Solution:
 
-    # Time O(N)
-    # Space O(1)
-    def maxProfitII(self, prices: List[int]) -> int:
+    # Time O(N) Space O(1), runtime = 68 ms
+    def maxProfit(self, prices: List[int]) -> int:
 
-        minPrice = prices[0]
-        maxProfit = 0
+        if not prices: return 0
 
-        for i in range(len(prices)):
-            if prices[i] < minPrice:
-                minPrice = prices[i]
-            elif prices[i] - minPrice > maxProfit:
-                maxProfit = prices[i] - minPrice
+        bottom_price = float('inf')
+        max_profit = 0
+        for p in prices:
+            bottom_price = min(bottom_price, p)
+            max_profit = max(max_profit, p - bottom_price)
 
-        return maxProfit
+        return max_profit
 
+
+'''   
+    #Time O(N)
+    #Space O(1), runtime = 56 ms
+    def maxProfit(self, prices: List[int]) -> int:
+
+        if not prices: return 0
+
+        bottom_price = prices[0]
+        max_profit = 0
+        for i in range(1, len(prices)):
+            if prices[i] < bottom_price:
+                bottom_price = prices[i]
+            if prices[i] - bottom_price > max_profit:
+                max_profit = prices[i] - bottom_price
+
+        return max_profit
+'''
 
 '''
     #Time O(N)
