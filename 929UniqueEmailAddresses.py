@@ -27,6 +27,8 @@ Note:
 
 class Solution:
 
+    # Note. I don't need dictionary, a set() would sovle the problem
+
     # Time O(N) Space O(N)
     def numUniqueEmails(self, emails: List[str]) -> int:
 
