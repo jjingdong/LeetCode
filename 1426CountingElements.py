@@ -30,15 +30,10 @@ Explanation: Both 1s are counted because 2 is in the array.
 
 class Solution:
 
-    # Time O(N) Space O(N)
+    # Time O(N) Space O(N), runtime = 28 ms
     def countElements(self, arr: List[int]) -> int:
 
-        eleMap = {}
-        for a in arr:
-            if a in eleMap:
-                eleMap[a] += 1
-            else:
-                eleMap[a] = 1
+        eleMap = collections.Counter(arr)
 
         count = 0
         for a in arr:
