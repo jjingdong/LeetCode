@@ -62,6 +62,17 @@ class Solution:
 
 
 '''
+    def arrangeCoins(self, n: int) -> int:
+        # sum of 1 to k is (k+1)k/2
+        # n = (k^2 + k)/2, floored, solve for k
+        # essentially find root of (2n), floor it then verify
+        k = int(sqrt(2.0 * n))
+        if k * (k+1)/2 <= n:
+            return k
+        return k-1
+'''
+
+'''
     # Time O(level) Space O(1)
     def arrangeCoins(self, n: int) -> int:
 
