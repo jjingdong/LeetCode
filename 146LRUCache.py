@@ -27,20 +27,28 @@
 from collections import OrderedDict
 
 
-# OrderedDict
+# Solution I: OrderedDict
 #
-# popitem(last=True)¶
-# The popitem() method for ordered dictionaries returns and removes a (key, value)
-# pair. last=True, pop the last. last = False, pop the first.
-#
-# move_to_end(key, last=True)
-# Move an existing key to either end of an ordered dictionary. The item is moved to
-# the right end if last is true (the default) or to the beginning if last is false.
-# Raises KeyError if the key does not exist:
+# Solution II: Hashmap + doubleLinkedList
 
 # Time Complexity O(1)
 # Space Complexixty O(capacity)
 class LRUCache(OrderedDict):
+
+    #     1   2
+    #     1   2
+    #
+    #         2|   1   3
+    #         2|   1   3
+    #
+    #             1|   3   4
+    #             1|   3   4
+    #
+    #                     4   3
+    #                     4   3
+    #
+    #                         3   4
+    #                         3   4
 
     def __init__(self, capacity: int):
 
