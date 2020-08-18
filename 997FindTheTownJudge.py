@@ -62,6 +62,11 @@ class Solution:
     #
     # Solution III: One Array
 
+    #     [[1,3],[2,3]]
+    #
+    #     1 -> 3 trust
+    #     2 -> 3 trust
+
     # Time O(N) Space O(N), Solution III: One Array
     def findJudge(self, N: int, trust: List[List[int]]) -> int:
 
@@ -136,12 +141,3 @@ class Solution:
         else:
             return -1
 '''
-
-
-
-
-
-
-
-
-
