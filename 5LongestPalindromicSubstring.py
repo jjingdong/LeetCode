@@ -27,8 +27,12 @@ class Solution:
 
     # Solution: DP
     #
+    # Solution: DP optimized. Note. I didn't implement
+    #
+    # Note. this question is similar to 516. Longest Palindromic Subsequence
 
     # Time O(MN) Space O(MN)
+    # Runtime 3532 ms
     def longestPalindrome(self, s: str) -> str:
 
         if s is None: return None
@@ -105,40 +109,3 @@ class Solution:
 
         return s[start: start+count]
 '''
-
-'''
-    # This is not the solution!!
-    # This ended up using DFS
-    def longestPalindrome(self, s: str) -> str:
-
-        def isPalindrome(s: str) -> str:
-            reverseS = "".join(reversed(s)) 
-            if reverseS == s: 
-                return True
-            return False
-
-        i, j = 0, len(s)
-        range = s[i:j]
-        if isPalindrome(range): 
-            return range
-        else:
-            return self.longestPalindrome(s[i+1:j]) or self.longestPalindrome(s[i:j-1])
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
