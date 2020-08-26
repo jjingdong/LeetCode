@@ -88,5 +88,3 @@ class Solution:
         if not num or num < 1: return False
         return math.log(num, 4).is_integer()
 '''
-
-'''
