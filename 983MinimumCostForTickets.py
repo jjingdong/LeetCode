@@ -101,6 +101,10 @@ class Solution:
     # runtime = 48 ms
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
 
+        a = 0
+
+
+
 
 '''
     # Time O(N), N = last day to travel + 1, Space O(N)
