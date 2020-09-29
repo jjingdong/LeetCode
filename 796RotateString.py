@@ -21,10 +21,6 @@ class Solution:
     # Solution I
     # abcde -> cdeab
     # abcde + abcde = ab|cdeab|cde -> contain cdeab
-    #
-    # Solution II
-    # Solution is not done
-    # Code is not done
 
     # Time Average = O(N), Worse = O(N^2) Space O(N)
     def rotateString(self, A: str, B: str) -> bool:
