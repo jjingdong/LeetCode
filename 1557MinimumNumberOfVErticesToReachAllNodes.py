@@ -75,20 +75,34 @@ class Solution:
     #         3. has topological order
     #
     #         so all the node without in-degree node is in the final answer
+    #         reverse_dict = {0: [], 1: [0], 2: [0, 4], 3: [], 4: [3], 5: [2]}
 
+    # Time O(), Space O(), runtime =
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+
+        if not edges: return None
+
+        seen = set()
+        for u, v in edges:
+            seen.add(v)
+
+        all_nodes = set([x for x in range(n)])
+        return all_nodes ^ seen
+
+
+'''
     # Time O(V+E), Space O(V), runtime = 1176 ms, 94.67%
     def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
 
         if not edges: return None
 
-        g_dict = {key: [] for key in range(n)}
-        for u, v in edges:
+        g_dict = {key:[] for key in range(n)}
+        for u,v in edges:
             g_dict[v].append(u)
 
         result = []
-        for k, v in g_dict.items():
+        for k,v in g_dict.items():
             if not v:
                 result.append(k)
         return result
-
-
+'''
