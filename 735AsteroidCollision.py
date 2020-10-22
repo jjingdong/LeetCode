@@ -43,33 +43,50 @@ class Solution:
     # a row of asteroids is table if no further collisions
     # Note. This is not done,
 
-    # Time O() Space O()
+    #         [5, 10, -5]
+    #
+    #     eg.
+    #         5   10  -5
+    #         --> --> <--
+    #         result = [5, 10]
+    #
+    #     eg.
+    #         8       -8
+    #         -->    <--
+    #         result = []
+    #
+    #     eg.
+    #         10    2   -5
+    #         -->  -->  <--
+    #         10   -5
+    #         -->  <--
+    #         result = [10]
+    #
+    #     eg.
+    #         -2      -1      1       2
+    #         <--    <--     -->     -->
+    #         result = [-2, -1, 1, 2]
+    #
+    #     using stack
+
+    # Time O(N) Space O(N)
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
 
-        results = []
-        stack = asteroids
-        last = stack.pop()
-        while len(stack) > 1:
-            top = stack.pop()
-            print('--------------')
-            print('top = ' + str(top))
-            if top > 0 and last < 0:
-                if top != -last:
-                    value = max(abs(top), abs(last))
-                    results.append(value)
-                    last = value
-                else:
-                    if len(stack) == 1:
-                        results.append(stack.pop())
-                    else:
-                        last = stack.pop()
-            else:
-                results.append(top)
-            print('results = ' + str(results))
+        if not asteroids: return None
 
-            results.append(last)
-        results.reverse()
-        return results
+        stack = collections.deque([])
+        for a in asteroids:
+
+            stack.append(a)
+            while len(stack) >= 2 and stack[-1] < 0 < stack[-2]:
+                top = stack.pop()
+                second_top = stack.pop()
+                if second_top < -top:
+                    stack.append(top)
+                elif second_top > -top:
+                    stack.append(second_top)
+
+        return stack
 
 
 '''
