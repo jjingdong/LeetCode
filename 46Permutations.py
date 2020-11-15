@@ -39,6 +39,27 @@ class Solution:
     #   i=2  i=1      i=2  i=0    i=1  i=0
     #   123  132      213  231    312  321
 
+    # Time O(N!) Space O(N)
+    def permute(self, nums: List[int]) -> List[List[int]]:
+
+        def mutation(build, index_set):
+
+            if len(build) == len(nums):
+                results.append(build)
+                return
+
+            for i in range(len(nums)):
+                if i not in index_set:
+                    index_set.add(i)
+                    mutation(build + [nums[i]], index_set)
+                    index_set.remove(i)
+
+        results = []
+        mutation([], set())
+        return results
+
+
+'''
     # Time O(N!) Space O(N!)
     def permute(self, nums: List[int]) -> List[List[int]]:
 
@@ -49,10 +70,10 @@ class Solution:
                 return
 
             for i in range(len(lst)):
-                mutation(build + [lst[i]], lst[:i] + lst[i + 1:])
+                mutation(build + [lst[i]], lst[:i] + lst[i+1:])
 
         results = []
         mutation([], nums)
         return results
-
+'''
 
