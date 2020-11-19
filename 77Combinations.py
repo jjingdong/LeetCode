@@ -37,13 +37,13 @@ class Solution:
     # Solution I
     #                       1,2,3,4
     #                    /               \
-    #        1x                                xx(not 1)                        --- 1 or not 1
+    #        1x                                xx(not 1)                        --- 1 or not 1, index points to 1
     #    /     \                             /         \
-    # 12         1x                       2x             xx(not 2)              --- 2 or not 2
+    # 12         1x                       2x             xx(not 2)              --- 2 or not 2, index points to 2
     #          /   \                     /   \            /   \
-    #        13      1x(not 3)        23  2x(not 3)     3x  xx(not 3)           --- 3 or not 3
+    #        13      1x(not 3)        23  2x(not 3)     3x  xx(not 3)           --- 3 or not 3, index points to 3
     #               /   \                 /  \                /  \
-    #            14  1x(not 4)           24  2x(not 4)       34  4x(not 4)      --- 4 or not 4
+    #            14  1x(not 4)           24  2x(not 4)       34  4x(not 4)      --- 4 or not 4, index points to 4
     #
     # Solution II
     #                                 1,2,3,4
