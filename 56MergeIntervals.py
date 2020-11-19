@@ -18,24 +18,29 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default 
 
 class Solution:
 
-    # Time O(NlogN) Space O(N), runtime = 76 ms
+    #         [[1,3],[2,6],[8,10],[15,18]]
+    #         output = [[1,6],[8,10],[15,18]]
+    #
+    #         [[1,4],[4,5]]
+    #         output = [[1,5]]
+
+    # Time O(NlogN) Space O(N)
+    # runtime = 84 ms
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
         if not intervals: return intervals
 
-        intervals = sorted(intervals, key=lambda x: x[0])
+        intervals = sorted(intervals, key=lambda x: (x[0], x[1]))
 
-        i, j = 0, 0
         results = []
-        pre_i, pre_j = intervals[0][0], intervals[0][1]
-        for [cur_i, cur_j] in intervals:
-            if pre_j < cur_i:
-                results.append([pre_i, pre_j])
-                pre_i = cur_i
-                pre_j = cur_j
+        pre_s, pre_e = intervals[0][0], intervals[0][1]
+        for [cur_s, cur_e] in intervals:
+            if pre_e < cur_s:
+                results.append([pre_s, pre_e])
+                pre_s = cur_s
+                pre_e = cur_e
             else:
-                pre_j = max(cur_j, pre_j)
+                pre_e = max(cur_e, pre_e)
 
-        results.append([pre_i, pre_j])
+        results.append([pre_s, pre_e])
         return results
-
