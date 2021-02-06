@@ -52,24 +52,26 @@ class Solution:
 
         # Time O(P), P = no. of chars to compare in order to create the dictionary
         # Space O(V+E), for dictionary
-        def create_dict():
 
-            chars = set(''.join(words))
-            g_dict = {char: [] for char in chars}
-            reverse_dict = {char: [] for char in chars}
 
-            for w1, w2 in zip(words, words[1:]):
+            def create_dict():
 
-                if len(w1) > len(w2) and w1[:len(w2)] == w2:
-                    return {}, {}
+                chars = set(''.join(words))
+                g_dict = {char: [] for char in chars}
+                reverse_dict = {char: [] for char in chars}
 
-                for char1, char2 in zip(w1, w2):
-                    if char1 != char2:
+                for w1, w2 in zip(words, words[1:]):
 
-                        if char2 not in g_dict[char1]:
-                            g_dict[char1].append(char2)
-                            reverse_dict[char2].append(char1)
-                        break
+                    if len(w1) > len(w2) and w1[:len(w2)] == w2:
+                        return {}, {}
+
+                    for char1, char2 in zip(w1, w2):
+                        if char1 != char2:
+
+                            if char2 not in g_dict[char1]:
+                                g_dict[char1].append(char2)
+                                reverse_dict[char2].append(char1)
+                            break
 
             return g_dict, reverse_dict
 
