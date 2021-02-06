@@ -1,28 +1,35 @@
-'''
-215. Kth Largest Element in an Array
-Medium
-
-Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
-Example 1:
-Input: [3,2,1,5,6,4] and k = 2
-Output: 5
-Example 2:
-Input: [3,2,3,1,2,4,5,5,6] and k = 4
-Output: 4
-Note: You may assume k is always valid, 1 ≤ k ≤ array's length.
-
-'''
-
-
 class Solution:
 
-    # Solution I: Sort
+    # Solution I: Sort, Time O(NlogK) Space O(1)
     #
-    # Solution II: Heap
+    # Solution II: Heap, Time O(NlogK) Space O(K)
     #
-    # Solution III: QuickSelect
+    # Solution III: QuickSelect, Time Worse O(N^2), average O(N), Space O(1)
+    
+    # def findKthLargest(self, nums: List[int], k: int) -> int:
+    #     ls = sorted(nums)
+    #     return ls[len(ls) - k]
+    
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k,nums)[-1]
+    
+'''    
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        #minheap
+        
+        a = []
+        for n in nums:
+            heapq.heappush(a, n)
+            heapq.heapify(a)
+            if len(a)>k:
+                heapq.heappop(a)
+                
+        ele = heapq.heappop(a)
+        return ele
+'''
 
-    # Time Worse O(N^2), average O(NlogK)
+'''
+    # Time Worse O(N^2), average O(N)
     # Space O(1)
     # runtime = 2252 ms
     def findKthLargest(self, nums: List[int], k: int) -> int:
@@ -49,10 +56,10 @@ class Solution:
                 start = mid + 1
 
         return None
-
+'''
 
 '''
-    # Worse Time O(N^2), average O(NlogK)
+    # Worse Time O(N^2), average O(N)
     # Space O(1)
     # runtime = 2192 ms
     def findKthLargest(self, nums: List[int], k: int) -> int:
@@ -83,3 +90,8 @@ class Solution:
         divide(0, len(nums) - 1)
         return nums[kk]
 '''
+    
+
+        
+        
+        
