@@ -145,7 +145,7 @@ class Solution:
             if start in c_dict:
                 for v,w in c_dict[start]:
                     path.append(u)
-                    dfs(v, price+w, level+1, path)
+                    dfs(v, price+w, level+1, path)-
                     path.pop()
 
         count = float('inf')
@@ -154,4 +154,22 @@ class Solution:
 
         if count == float('inf'): return -1 
         return count
+'''
+
+'''
+    # Note. floyd Warshall algorithm won't working here, since it require input k stops
+    # Time O(N^3) Space O(N^2)
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, K: int) -> int:
+        matrix = [[float('inf') for _ in range(n)] for _ in range(n)]
+    
+        for u, v, w in flights:
+            matrix[u][v] = w
+    
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    if matrix[i][j] > matrix[i][k] + matrix[k][j]:
+                        matrix[i][j] = matrix[i][k] + matrix[k][j]
+    
+        return matrix[src][dst]
 '''
