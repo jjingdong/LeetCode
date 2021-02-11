@@ -16,21 +16,17 @@ Follow up: What if the inputs contain unicode characters? How would you adapt 
 
 class Solution:
 
-    # Time O(N) Space O(1)
+    # Time O(N) Space O(N)
     def isAnagram(self, s: str, t: str) -> bool:
+
+        if s is None or t is None: return None
 
         if len(s) != len(t): return False
 
-        anagram = collections.Counter(s)
-
-        for c in t:
-            if c in anagram:
-                anagram[c] -= 1
-            else:
-                return False
-
-        for v in anagram.values():
-            if v != 0:
+        c_dict = collections.Counter(s)
+        for tt in t:
+            c_dict[tt] -= 1
+            if c_dict[tt] < 0:
                 return False
 
         return True
