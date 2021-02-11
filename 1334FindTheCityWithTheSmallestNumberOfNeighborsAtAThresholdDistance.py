@@ -2,13 +2,6 @@
 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
 Medium
 
-355
-
-25
-
-Add to List
-
-Share
 There are n cities numbered from 0 to n-1. Given the array edges where edges[i] =
 [fromi, toi, weighti] represents a bidirectional and weighted edge between cities
 fromi and toi, and given the integer distanceThreshold.
@@ -93,6 +86,19 @@ class Solution:
     #     output:
     #         (1) one city: has minimum number of cities can reach, with in distanceTreshold
     #         (2) if multiple answer, return the city with the largest city no.
+    #
+    #     node 1 ------------> node 2
+    #                 node k
+    #             distance = (node1 to nodek) + (node k to node 2)
+
+    #     0----------> 3
+    #      0->1 1->3
+    #      0->2 2->3
+
+    #     for k in range(n):
+    #         for i in range(n):
+    #             for j in range(n):
+    #                 distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
 
     # Time O(V^3) Space O(V^2), runtime = 440 ms, 85.47%
     def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
