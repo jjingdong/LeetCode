@@ -41,6 +41,37 @@ All the pairs (ui, vi) are unique. (i.e., no multiple edges.)
 '''
 
 
+# Solution II: Dijkstra
+# Time O() Space O()
+def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+    t_dict = collections.defaultdict(dict)
+    for u, v, w in times:
+        t_dict[u][v] = w
+
+    queue = [(0, k)]
+    visited = {}
+    while queue:
+
+        weight, node = heapq.heappop(queue)
+
+        if node not in visited:
+            visited[node] = weight
+
+        if len(visited) == n:
+            return max(visited)
+
+        for next_node in t_dict[node]:
+            heapq.heappush(queue, (t_dict[node][next_node], next_node))
+
+    if all_max != float('inf'):
+        return all_max
+
+    return -1
+
+
+
+
+
 class Solution:
 
     #         u -------> v
