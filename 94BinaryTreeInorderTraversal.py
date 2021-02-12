@@ -34,8 +34,9 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 class Solution:
 
     # Solution I: Recursion
-    #
     # Solution II: Iteration
+    # Solutjion III: Morri
+
 
     # Time O(N) Space O(N), using iteration
     def inorderTraversal(self, root: TreeNode) -> List[int]:
@@ -57,7 +58,7 @@ class Solution:
         return in_order
 
 
-'''
+
     # Time O(N) Space O(N), using recursion
     def inorderTraversal(self, root: TreeNode) -> List[int]:
 
@@ -73,4 +74,29 @@ class Solution:
         in_order = []
         traverse(root)
         return in_order
-'''
+
+
+    # Time O(N) Space O(N)
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+
+        if not root: return None
+        result = []
+        cur = root
+        while cur:
+            if not cur.left:
+                result.append(cur.val)
+                cur = cur.right
+            else:
+                predecessor = cur.left
+
+                while predecessor.right != None and predecessor.right != cur:
+                    predecessor = predecessor.right
+                if predecessor.right == None:
+                    predecessor.right = cur
+                    cur = cur.left
+                else:
+                    predecessor.right = None
+                    result.append(cur.val)
+                    cur = cur.right
+
+        return result
