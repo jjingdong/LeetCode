@@ -34,7 +34,7 @@ Note:
 
 class Solution:
 
-    # Time O() Space O()
+
     def shortestPathLength(self, graph: List[List[int]]) -> int:
 
         # Step 1: Floyd-Warshall Time O(N^3) Space O(N^2)
