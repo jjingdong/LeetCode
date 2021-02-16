@@ -2,13 +2,6 @@
 94. Binary Tree Inorder Traversal
 Medium
 
-2790
-
-120
-
-Add to List
-
-Share
 Given a binary tree, return the inorder traversal of its nodes' values.
 
 Example:
@@ -37,14 +30,58 @@ class Solution:
     # Solution II: Iteration
     # Solutjion III: Morri
 
+    # Recursion
+    # Time O(N) Space O(H)
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
 
-    # Time O(N) Space O(N), using iteration
+        def dfs(node):
+            if not node: return
+
+            dfs(node.left)
+            result.append(node.val)
+            dfs(node.right)
+
+        result = []
+        dfs(root)
+        return result
+
+    # Morris Tree Traversal
+    # Time O(N) Space O(1)
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+
+        if not root: return None
+
+        result = []
+        cur = root
+        while cur:
+
+            if cur.left:
+                pre = cur.left
+
+                while pre.right is not None and pre.right != cur:
+                    pre = pre.right
+
+                if pre.right is None:
+                    pre.right = cur
+                    cur = cur.left
+                else:
+                    pre.right = None
+                    result.append(cur.val)
+                    cur = cur.right
+            else:
+                result.append(cur.val)
+                cur = cur.right
+
+        return result
+
+    # Iteration
+    # Time O(N) Space O(N)
     def inorderTraversal(self, root: TreeNode) -> List[int]:
 
         if not root: return []
 
         in_order = []
-        stack = collections.deque([])
+        stack = []
         node = root
         while node or stack:
             while node is not None:
@@ -56,47 +93,3 @@ class Solution:
             node = node.right
 
         return in_order
-
-
-
-    # Time O(N) Space O(N), using recursion
-    def inorderTraversal(self, root: TreeNode) -> List[int]:
-
-        if not root: return []
-
-        def traverse(node): 
-            if node is None: return
-
-            traverse(node.left)
-            in_order.append(node.val)
-            traverse(node.right)
-
-        in_order = []
-        traverse(root)
-        return in_order
-
-
-    # Time O(N) Space O(N)
-    def inorderTraversal(self, root: TreeNode) -> List[int]:
-
-        if not root: return None
-        result = []
-        cur = root
-        while cur:
-            if not cur.left:
-                result.append(cur.val)
-                cur = cur.right
-            else:
-                predecessor = cur.left
-
-                while predecessor.right != None and predecessor.right != cur:
-                    predecessor = predecessor.right
-                if predecessor.right == None:
-                    predecessor.right = cur
-                    cur = cur.left
-                else:
-                    predecessor.right = None
-                    result.append(cur.val)
-                    cur = cur.right
-
-        return result
