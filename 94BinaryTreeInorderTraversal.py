@@ -75,7 +75,7 @@ class Solution:
         return result
 
     # Iteration
-    # Time O(N) Space O(N)
+    # Time O(N) Space O(H)
     def inorderTraversal(self, root: TreeNode) -> List[int]:
 
         if not root: return []
