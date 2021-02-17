@@ -19,6 +19,12 @@ Output: 6
 
 class Solution:
 
+    # minimum of maximum height of bars on both the sides minus its own height
+    # ans = min(left_max, right_max) - height[i]
+    # left_max = max(left_max, height[j])
+    # right_max = max(right_max, height[j])
+    # ans = max(0, min(left_max, right_max) - height[i])
+
     # Use l, r pointers
     # Time O(N) Space O(1)
     def trap(self, height: List[int]) -> int:
@@ -46,6 +52,46 @@ class Solution:
                 else:
                     total += right_max - height[r]
                 r -= 1
+
+        return total
+
+
+
+    # Time O(N) Space O(N)
+    def trap(self, height: List[int]) -> int:
+
+        if not height: return 0
+
+        size = len(height)
+        left = [0] * size
+        right = [0] * size
+        total = 0
+        left[0] = height[0]
+        right[size - 1] = height[size - 1]
+
+        for i in range(1, size):
+            left[i] = max(left[i - 1], height[i])
+
+        for j in range(size - 2, -1, -1):
+            right[j] = max(right[j + 1], height[j])
+
+        for i in range(size):
+            total += max(0, min(left[i], right[i]) - height[i])
+
+        return total
+
+
+
+    # Brute Force
+    # Time O(N^2) Space O(1)
+    def trap(self, height: List[int]) -> int:
+
+        total, left_max, right_max = 0, 0, 0
+        for i in range(len(height)):
+
+            left_max = 0 if i == 0 else max(height[:i])
+            right_max = 0 if i == len(height) - 1 else max(height[i+1:])
+            total += max(0, min(left_max, right_max) - height[i])
 
         return total
 
