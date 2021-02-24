@@ -21,66 +21,64 @@ Given target = 20, return false.
 
 class Solution:
 
-    # start i = size -1, j = 0
-    # if cur > target: row -= 1
-    # if cur < target: col+= 1
+    #         [[1,    4,  7,  11, 15],
+    #          [2,    5,  8,  12, 19],
+    #          [3,    6,  9,  16, 22],
+    #          [10,   13, 14, 17, 24],
+    #          [18,   21, 23, 26, 30]]
 
-    # Time O(M+N) Space O(1), runtime = 44 ms
-    def searchMatrix(self, matrix, target):
+    #         binary search
+    #         target = 5
+    #         9 -> 5
 
-        if not matrix or not target: return False
+    #         binary search II
+    #         target = 24
+    #         18 -> 21 -> 23 -> 26 -> 17 -> 24
 
-        size, col_size = len(matrix), len(matrix[0])
-        row, col = size - 1, 0
-        while col < col_size and row >= 0:
-            cur = matrix[row][col]
-            if cur == target:
+    # Time O(M+N) Space O(1)
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+
+        if not matrix: return None
+        size = len(matrix)
+        col_size = len(matrix[0])
+
+        r = size - 1
+        c = 0
+        while c < col_size and 0 <= r:
+            if matrix[r][c] == target:
                 return True
-            elif cur < target:
-                col += 1
+            elif matrix[r][c] < target:
+                c += 1
             else:
-                row -= 1
+                r -= 1
 
         return False
 
 
-'''
-    # This is not a solution
-    # Time O() Space O()
-    def searchMatrix(self, matrix, target):
-        """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
-        """
+'''    
+    # Note. This is not done.
+    # There is a better solution to this
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
 
-# target = 20
-# [
-#   [1,   4,  7, 11, 15],
-#   [2,   5,  8, 12, 19],
-#   [3,   6,  9, 16, 22],
-#   [10, 13, 14, 17, 24],
-#   [18, 21, 23, 26, 30]
-# ]
-# matrix[mid_i][mid_j] = 9, lo_i = 0, hi_i = 4, lo_j = 0, hi_j = 4
-# matrix[mid_i][mid_j] = 17, lo_i = 2, hi_i = 4, lo_j = 2, hi_j = 4, mid_i = 3, mid_j = 3
-# if diff between lo and mid, mid and hi is 1: then create one/two lists
-
-
-        if not matrix or not target: return False
-
+        if not matrix: return None
         size = len(matrix)
         col_size = len(matrix[0])
-        lo_i, hi_i, lo_j, hi_j = 0, size-1, 0, col_size-1
-        while hi_i - lo_i > 1 and hi_j - hi_i > 1:
-            mid_i, mid_j = lo_i + (hi_i-lo_i)//2, lo_j + (hi_j-lo_j)//2
-            mid = matrix[mid_i][mid_j]
-            if mid == target:
-                return True
-            elif mid < target:
-                lo_i, lo_j = mid_i, mid_j    
-            else:
-                hi_i, hi_j = mid_i, mid_j
 
-        print(f'{lo_i}, {hi_i}, {lo_j}, {hi_j}')
+        lo_r, hi_r = 0, size-1
+        lo_c, hi_c = 0, col_size - 1
+        while lo_r+1 < hi_r and lo_c +1 < hi_c:
+
+            mid_r = (lo_r + hi_r)//2
+            mid_c = (lo_c + hi_c)//2
+
+            if target == matrix[mid_r][mid_c]:
+                return True
+            elif target < matrix[mid_r][mid_c]:
+                hi_r = mid_r
+                hi_c = mid_c
+            else:
+                lo_r = mid_r
+                lo_c = mid_c
+
+        return False
 '''
