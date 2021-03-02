@@ -54,7 +54,6 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 class Solution:
 
     # Time O(N) Space O(1)
-    # runtime = 44 ms
     def detectCycle(self, head: ListNode) -> ListNode:
 
         if not head: return None
@@ -66,6 +65,7 @@ class Solution:
             f = f.next.next
 
             if s == f:
+                # * intersection in cycle part
                 # find the cycle start
                 p = head
                 while p != s:
