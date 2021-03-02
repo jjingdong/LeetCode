@@ -46,7 +46,7 @@ class Solution:
         return p
 
 
-    # iterative
+    # Iteration
     # Time O(N) Space O(1), runtime = 32 ms
     def reverseList(self, head: ListNode) -> ListNode:
 
