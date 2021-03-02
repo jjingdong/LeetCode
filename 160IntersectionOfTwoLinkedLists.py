@@ -38,15 +38,22 @@ Notes:
 
 class Solution:
 
-    # Time O(M+N) Space O(1)
+    # Time O(N+M) Space O(1)
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
 
         if not headA or not headB: return None
 
-        nodeA = headA
-        nodeB = headB
-        while nodeA is not nodeB:
-            nodeA = nodeA.next if nodeA is not None else headB
-            nodeB = nodeB.next if nodeB is not None else headA
+        a = headA
+        b = headB
+        while a != b:
 
-        return nodeA
+            if a:
+                a = a.next
+            else:
+                a = headB
+            if b:
+                b = b.next
+            else:
+                b = headA
+
+        return a
