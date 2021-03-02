@@ -59,7 +59,7 @@ class Solution:
     #
     #           1
 
-    # Time O(N) Space O(1), runtime = 44 ms
+    # Time O(N) Space O(1)
     def hasCycle(self, head: ListNode) -> bool:
 
         if not head: return False
@@ -73,5 +73,22 @@ class Solution:
 
             s = s.next
             f = f.next.next
+
+        return False
+
+    # Time O(N) Space O(1)
+    def hasCycle(self, head: ListNode) -> bool:
+
+        if not head: return False
+
+        s = head
+        f = head
+        while f and f.next:
+
+            s = s.next
+            f = f.next.next
+
+            if s == f:
+                return True
 
         return False
