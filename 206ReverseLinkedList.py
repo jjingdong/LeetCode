@@ -20,10 +20,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 
 class Solution:
 
-    # Solution I: Iterative
-    #
-    # Solution II: Recursize
-
+    # Recursion
     # Time O(N) Space O(N), runtime = 44 ms
     def reverseList(self, head: ListNode) -> ListNode:
         def reverse(node):
@@ -36,8 +33,20 @@ class Solution:
 
         return reverse(head)
 
+    # Recursion
+    # Time O(N) Space O(N), runtime = 44 ms
+    def reverseList(self, head: ListNode) -> ListNode:
+        node = head
+        if not node or not node.next: return node
 
-'''
+        p = self.reverseList(node.next)
+        node.next.next = node
+        node.next = None
+
+        return p
+
+
+    # iterative
     # Time O(N) Space O(1), runtime = 32 ms
     def reverseList(self, head: ListNode) -> ListNode:
 
@@ -49,5 +58,5 @@ class Solution:
             pre = node
             node = next_node
         return pre
-'''
+
 
