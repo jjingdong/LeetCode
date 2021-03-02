@@ -65,3 +65,29 @@ class Solution:
 
         return lo == 0
 
+    # Time O(N) Space O(N)
+    def checkValidString(self, s: str) -> bool:
+
+        def helper(index, lo, hi):
+
+            if index == size:
+                if hi < 0: return False
+                if lo < 0: lo = 0
+                return lo == 0
+
+            if hi < 0:
+                return False
+            if lo < 0:
+                lo = 0
+
+            cur = s[index]
+            if cur == '(':
+                return helper(index + 1, lo + 1, hi + 1)
+            elif cur == ')':
+                return helper(index + 1, lo - 1, hi - 1)
+            else:
+                return helper(index + 1, lo - 1, hi + 1)
+
+        size = len(s)
+        return helper(0, 0, 0)
+
