@@ -59,9 +59,9 @@ class Solution:
                 lo -= 1
                 hi += 1
 
-            lo = max(lo, 0)
             if hi < 0:
                 return False
+            lo = max(lo, 0)
 
         return lo == 0
 
