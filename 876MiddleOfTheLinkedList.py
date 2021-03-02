@@ -31,39 +31,15 @@ class Solution:
 
     # Time O(N) Space O(1)
     def middleNode(self, head: ListNode) -> ListNode:
-        if head is None: return None
-
-        slowNode = head
-        fastNode = head
-        while fastNode is not None and fastNode.next is not None:
-            slowNode = slowNode.next
-            fastNode = fastNode.next.next
-
-        return slowNode
-
-
-'''   
-    # Time O(N) Space O(1)
-    def middleNode(self, head: ListNode) -> ListNode:
 
         if head is None: return None
 
-        size = 0
-        curNode = head
-        while curNode is not None:
-            size += 1
-            curNode = curNode.next
+        slow = head
+        fast = head
 
-        mid = 0
-        if size % 2 == 0:
-            mid = size / 2 + 1
-        else:
-            mid = size // 2 + 1
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
 
-        curNode = head
-        while mid > 1:
-            mid -= 1
-            curNode = curNode.next
+        return slow
 
-        return curNode
-'''
