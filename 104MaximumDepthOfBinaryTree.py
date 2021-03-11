@@ -22,6 +22,7 @@
 
 class Solution:
 
+    # Solution I
     # Time O(N)
     # Space O(N)
     def maxDepth(self, root: TreeNode) -> int:
@@ -29,3 +30,21 @@ class Solution:
             return 0
 
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+
+    # Solutjion II
+    # Time O(N) Space O(N)
+    def maxDepth(self, root: TreeNode) -> int:
+
+        def helper(node, d):
+            nonlocal max_depth
+
+            if not node: return
+
+            max_depth = max(max_depth, d)
+
+            helper(node.left, d + 1)
+            helper(node.right, d + 1)
+
+        max_depth = 0
+        helper(root, 1)
+        return max_depth
