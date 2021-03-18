@@ -97,6 +97,46 @@ class Solution:
     #  cost 2   0   2           4       6   8   10
     #  cost 15  0
 
+
+
+    # Time O(N),N=last day + 1 Space O(30)
+    # reuse the 30 days range
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+
+        size = 30
+        dp = [float('inf')] * size
+        for i in range(0, days[0]):
+            dp[i % size] = 0
+        # print(dp)
+
+        # days = [1,4,6,7,8,20]
+        # i = 0, 1, 2,3 , 4, 5, 6,7
+        for i in range(days[0], days[-1] + 1):
+            # travel
+            # i = 1, 4, 6, 8, 20
+            if i in days:
+                a = costs[0]
+                b = costs[1]
+                c = costs[2]
+                if i > 1:
+                    a = dp[(i - 1) % size] + costs[0]
+                if i > 7:
+                    b = dp[(i - 7) % size] + costs[1]
+                if i > 30:
+                    c = dp[(i - 30) % size] + costs[2]
+
+                # print(f'i={i} a={a} b={b} c={c}')
+                dp[i % size] = min(a, b, c)
+
+            # not travel
+            else:
+                dp[i % size] = dp[(i - 1) % size]
+
+        # print(dp)
+
+        return dp[(days[-1]) % size]
+
+
     # Time O(N) Space O(N)
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
 
@@ -130,9 +170,5 @@ class Solution:
         # print(dp)
 
         return dp[-1]
-
-
-
-
 
 
