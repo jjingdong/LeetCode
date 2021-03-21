@@ -35,6 +35,25 @@ class Solution:
     #
     # solution III: Dynamic Programming - tabulation
     # Levenshtein distance
+    #
+    #     horse
+    #     ros
+    #     horse -> rorse -> rose -> ros
+    #     output = 3
+    #
+    #     intention
+    #     execution
+    #     intention -> inention -> enention -> exention -> exection -> execution
+    #     output = 5
+    #
+    #    s: XXXXXXX i
+    #    t: YYYYYYY j
+
+    #           h  o  r  s  e
+    #      [[0, 1, 2, 3, 4, 5],
+    # r     [1, 1, 2, 2, 3, 4],
+    # o     [2, 2, 1, 2, 3, 4],
+    # s     [3, 3, 2, 2, 2, 3]]
 
     # Time O(MN) Space O(MN), using tabulation, runtime = 204 ms
     def minDistance(self, word1: str, word2: str) -> int:
