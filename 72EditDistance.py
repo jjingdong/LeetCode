@@ -55,39 +55,40 @@ class Solution:
     # o     [2, 2, 1, 2, 3, 4],
     # s     [3, 3, 2, 2, 2, 3]]
 
-    # Time O(MN) Space O(MN), using tabulation, runtime = 204 ms
+
+    # Time O(MN) Space O(MN)
     def minDistance(self, word1: str, word2: str) -> int:
 
         if not word1 and not word2: return 0
-        if not word1: return len(word2)
-        if not word2: return len(word1)
 
-        size, col_size = len(word1), len(word2)
-        dp = [[None for _ in range(col_size + 1)] for _ in range(size + 1)]
+        col_size = len(word1)
+        size = len(word2)
+        dp = [[0 for _ in range(col_size + 1)] for _ in range(size + 1)]
 
         for i in range(size + 1):
             dp[i][0] = i
-        for j in range(col_size + 1):
-            dp[0][j] = j
 
-        for i in range(1, size + 1):
-            for j in range(1, col_size + 1):
-                if word1[i - 1] == word2[j - 1]:
-                    dp[i][j] = dp[i - 1][j - 1]
+        for c in range(col_size + 1):
+            dp[0][c] = c
+
+        for r in range(1, size + 1):
+            for c in range(1, col_size + 1):
+                if word1[c - 1] == word2[r - 1]:
+                    dp[r][c] = dp[r - 1][c - 1]
                 else:
-                    dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1])
+                    dp[r][c] = min(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) + 1
 
+        # print(dp)
         return dp[-1][-1]
 
 
-'''    
-    # Time O(MN), Space O(MN), 
-    # runtime = 236 ms
-    # Using cache
+
+    # Time O(MN), M = length of word1, N = length of word2
+    # Space O(MN)
     def minDistance(self, word1: str, word2: str) -> int:
 
-        def operation(i, j):
-
+        def helper(i, j):
+            # base case
             if i == len(word1) and j == len(word2):
                 return 0
             if i == len(word1):
@@ -95,24 +96,25 @@ class Solution:
             if j == len(word2):
                 return len(word1) - i
 
-            key = (i,j)
+            # recursive case
+            key = (i, j)
             if key in cache:
                 return cache[key]
-            else:
-                if word1[i] == word2[j]:
-                    return operation(i+1, j+1)
-                else:
-                    insert = 1 + operation(i, j+1)
-                    delete =  1 + operation(i+1, j)
-                    replace = 1 + operation(i+1, j+1)
-                    cache[key] = min(insert, delete, replace)
-                return cache[key]
 
-        if not word1 and not word2: return 0
-        # cache = {(i,j)}: count}
+            if word1[i] == word2[j]:
+                cache[(i, j)] = helper(i + 1, j + 1)
+                return cache[(i, j)]
+            else:
+                insert = 1 + helper(i, j + 1)
+                delete = 1 + helper(i + 1, j)
+                replace = 1 + helper(i + 1, j + 1)
+                cache[(i, j)] = min(insert, delete, replace)
+                return cache[(i, j)]
+
         cache = {}
-        return operation(0, 0)
-'''
+        # cache = {(i,j): counter}
+        return helper(0, 0)
+
 
 '''
     # Time O(MN), Space O(MN), 
