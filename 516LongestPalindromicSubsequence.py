@@ -113,32 +113,40 @@ def longestPalindromeSubseq(self, s: str) -> int:
         return dp[0][-1]
 '''
 
-''' 
-    # Time O(N^2) Space O(N), Time Limit Exceeded
+    # Time O(N^2), Space O(N^2)
     def longestPalindromeSubseq(self, s: str) -> int:
 
-        def subseq(l,r):
+        def helper(l,r):
 
+            #base case
             if l > r:
                 return 0
             if l == r:
                 return 1
 
-            if (l,r) in s_dict:
-                return s_dict[(l,r)]
+            if (l,r) in cache:
+                return cache[(l,r)]
 
-            left,right = s[l], s[r]   
-            if left == right:
-                s_dict[(l,r)] = 2 + subseq(l+1, r-1) 
+            #recursive case
+            char_l = s[l]
+            char_r = s[r]
+            if char_l == char_r:
+                cache[(l, r)] = 2 + helper(l+1, r-1)
+                return cache[(l, r)]
+
             else:
-                s_dict[(l,r)] = max(subseq(l+1, r), subseq(l, r-1))
-            return s_dict[(l,r)]
+                counter1 = helper(l+1,r)
+                counter2 = helper(l,r-1)
+                cache[(l, r)]  = max(counter1, counter2)
 
-        # {(i,j): value}
-        s_dict = {}
-        if not s: return 0
-        return subseq(0,len(s)-1)
-'''
+                return cache[(l, r)]
+
+        # cache = {'l_r' : counter}
+        # cache = {(l,r) : counter}
+        # cache = {'bbba' : counter}
+        cache = {}
+        size = len(s)
+        return helper(0, size-1)
 
 '''
     # Time O(N^2) Space O(1), Time Limit Exceeded, using recursion
