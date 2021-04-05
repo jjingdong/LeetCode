@@ -50,8 +50,8 @@ class Solution:
 #
 # Solution III: DP tabulation
 
-# Time O() ----> this is not done
-def longestPalindromeSubseq(self, s: str) -> int:
+
+
     #         b b b a b
     #         0 1 2 3 4
     #     0   1 2 3 3 4
@@ -59,45 +59,9 @@ def longestPalindromeSubseq(self, s: str) -> int:
     #     2       1 1 3
     #     3         1 1
     #     4           1
-    #
-    #          b b b a b
-    #     dp   0 1 2 3 4
-    #
-    #         dp[i][j] = 2 + dp[i+1][j-1]
-    #         dp[i] = 2 + dp[i+1] from previous
-    #
-    #         dp[i][j] = max(dp[i+1][j], dp[i][j-1])
-    #         dp[i] = max(dp[i+1], dp[i])
-
-    size = len(s)
-    dp = [1] * size
-
-    for i in range(size - 1, -1, -1):
-
-        for j in range(i + 1, size):
-
-            if s[i] == s[j]:
-                dp[i] = 2 + dp[i + 1]
-            else:
-                dp[i] = max(dp[i + 1], dp[i])
-
-    print(dp)
-    return dp[0]
-
-
-'''
+    #         dp[i][j]
     # Time O(n^2) Space O(N), runtime = 2456 ms
     def longestPalindromeSubseq(self, s: str) -> int:
-
-#         b b b a b
-#         0 1 2 3 4
-#     0   1 2 3 3 4
-#     1     1 2 2 3
-#     2       1 1 3
-#     3         1 1
-#     4           1
-#         dp[i][j]
-
         size = len(s)
         dp = [[0 for _ in range(size)] for _ in range(size)]
 
@@ -111,7 +75,29 @@ def longestPalindromeSubseq(self, s: str) -> int:
                     dp[i][j] = max(dp[i+1][j], dp[i][j-1])
 
         return dp[0][-1]
-'''
+
+    # [[1, 0, 0, 0, 0],
+    # [2, 1, 0, 0, 0],
+    # [3, 2, 1, 0, 0],
+    # [3, 2, 1, 1, 0],
+    # [4, 3, 3, 1, 1]]
+    # Time O(N^2) Space O(N^2)
+    def longestPalindromeSubseq(self, s: str) -> int:
+
+        size = len(s)
+        dp = [[0 for _ in range(size)] for _ in range(size)]
+
+        for r in range(size):
+            dp[r][r] = 1
+            for c in range(r - 1, -1, -1):
+
+                if s[r] == s[c]:
+                    dp[r][c] = 2 + dp[r - 1][c + 1]
+                else:
+                    dp[r][c] = max(dp[r - 1][c], dp[r][c + 1])
+
+        return dp[-1][0]
+
 
     # Time O(N^2), Space O(N^2)
     def longestPalindromeSubseq(self, s: str) -> int:
