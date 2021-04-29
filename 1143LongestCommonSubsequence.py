@@ -68,17 +68,6 @@ class Solution:
     # Time O(MN) Space O(MN)
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
 
-        # m, n = len(text1),len(text2)
-        # dp = [ [0]*(n+1) for i in range(m+1)]
-        # # fill out the 2D table
-        # for i in range(m):
-        #     for j in range(n):
-        #         if text1[i]==text2[j]:
-        #             dp[i+1][j+1]=dp[i][j]+1
-        #         else:
-        #             dp[i+1][j+1]= max(dp[i+1][j],dp[i][j+1])
-        # return int(dp[m][n])
-
         if not text1 or not text2: return None
 
         col_size = len(text1)
@@ -99,3 +88,69 @@ class Solution:
         # dp = [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1], [0, 1, 1, 2, 2, 2], [0, 1, 1, 2, 2, 3]]
 
         return dp[-1][-1]
+
+    # Time O(MN) Space O(MN)
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+
+        if not text1 or not text2: return None
+
+        col_size = len(text1)
+        size = len(text2)
+
+        dp = [[0 for _ in range(col_size + 1)] for _ in range(size + 1)]
+
+        for i in range(1, size + 1):
+            for j in range(1, col_size + 1):
+                if text2[i - 1] == text1[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+        print(dp)
+        # text1 = 'abcde'
+        # text2 = 'ace'
+        # dp = [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1], [0, 1, 1, 2, 2, 2], [0, 1, 1, 2, 2, 3]]
+
+        return dp[-1][-1]
+
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+
+        def helper(i, j):
+
+            # base case
+            if i == -1 or j == -1:
+                return 0
+
+            if (i, j) in cache:
+                return cache[(i, j)]
+
+                # recursion case
+            if text1[i] == text2[j]:
+                cache[(i, j)] = helper(i - 1, j - 1) + 1
+                return cache[(i, j)]
+
+            else:
+                cache[(i, j)] = max(helper(i - 1, j), helper(i, j - 1))
+                return cache[(i, j)]
+
+        cache = {}
+        return helper(len(text1) - 1, len(text2) - 1)
+
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+
+        size = len(text2) + 1
+        col_size = len(text1) + 1
+        dp0 = [0] * col_size
+        dp1 = [0] * col_size
+        for r in range(1, size):
+            for c in range(1, col_size):
+                if text1[c - 1] == text2[r - 1]:
+                    dp1[c] = dp0[c - 1] + 1
+                else:
+                    dp1[c] = max(dp0[c], dp1[c - 1])
+
+            dp0 = dp1
+            dp1 = dp1 = [0] * col_size
+            # print(dp1)
+
+        return dp0[-1]
