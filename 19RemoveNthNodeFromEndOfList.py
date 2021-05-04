@@ -105,7 +105,7 @@ class Solution:
         #                                         f
 
         f = head
-        s = head
+        pre_n = head
         for _ in range(n):
             f = f.next
         if f is None:
@@ -113,7 +113,7 @@ class Solution:
 
         while f.next is not None:
             f = f.next
-            s = s.next
+            pre_n = pre_n.next
 
-        s.next = s.next.next
+        pre_n.next = pre_n.next.next
         return head
