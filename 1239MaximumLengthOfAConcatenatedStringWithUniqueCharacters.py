@@ -32,128 +32,90 @@ Constraints:
 arr[i] contains only lower case English letters.
 '''
 
-#         arr = un iq ue, no. of combination = 3+3+1, (k * n!/(k!(n-k)!))????
-
-#             un  iq  ue  uniq    ique    unue      unique
-#             2   2   2   4       4       0         0
-#         output = 4
 
 
-#         arr = "cha","r","act","ers"
-#             cha r act ers
-#             3   1   3   3
-#                 char    chaact  chaers  ract    rers    acters
-#                 4               6       4               6
-
-
-#         index   0       1       2       3
-#                 cha     r       act     ers
-
-
-#                 cha         r        act         ers
-
-#         cha     chacha-0    char-4   charact-0   charers-0
-#         r
-#         act
-#         ers
-
-#             cha     r       act     ers
-#             r
-
-
-#     # Time O() Space O()
-#     # result = ['', 'un', 'iq', 'uniq', 'ue', 'unue', 'ique', 'unique']
-#     def maxLength(self, arr: List[str]) -> int:
-
-#         def helper(build, index):
-
-#             result.append(build)
-
-#             for i in range(index+1):
-#                 helper(arr[i]+build, i-1)
-
-#         result = []
-#         size = len(arr)
-#         helper('', size-1)
-
-
-#     # Time O() Space O()
-#     # result = ['', 'un', 'iq', 'uniq', 'ue', 'unue', 'ique', 'unique']
-#     def maxLength(self, arr: List[str]) -> int:
-
-#         def helper(build, index):
-
-#             if index == -1:
-#                 # print(f'build = {build} index = {index}')
-#                 result.append(build)
-#                 return
-
-#             helper(build, index-1)
-#             helper(arr[index] + build, index-1)
-
-#         result = []
-#         size = len(arr)
-#         helper('', size-1)
-#         # print(result)
-
+# This is not a solution
+# It's recursion approach for getting all combination, without set checking
+# result = ['', 'un', 'iq', 'uniq', 'ue', 'unue', 'ique', 'unique']
 def maxLength(self, arr: List[str]) -> int:
-    size = len(arr) + 1
-    dp = [[('', 0) for _ in range(size)] for _ in range(size)]
+    result = []
 
-    for r in range(size):
-        dp[r][0] = ('', 0)
+    def helper(build, index):
+        if index == -1:
+            result.append(build)
+            return 0
 
-    for c in range(size):
-        dp[0][c] = ('', 0)
+        helper(arr[index] + build, index - 1)
+        helper(build, index - 1)
 
-    # for r in range(size):
-    #     if arr[r-1] == len(set(arr[r-1])):
-    #         dp[r][r] = (arr[r-1], len(arr[r-1]))
-    #     else:
-    #         string = ', '.join(str(e) for e in set(arr[r-1]))
-    #         dp[r][r] = (string, 0)
+    size = len(arr)
+    helper('', size - 1)
+    print(result)
+    return 0
 
-    for r in range(1, size):
-        for c in range(r + 1, size):
-            # print(f'r = {r} c = {c}')
+# This is not a solution
+# It's recursion approach for getting all combination, without set checking
+# result = ['', 'un', 'iq', 'uniq', 'ue', 'unue', 'ique', 'unique']
+def maxLength(self, arr: List[str]) -> int:
 
-            if set(arr[c - 1]) & set(dp[r][c - 1][0]):
-                print('here')
-                dp[r][c] = (dp[r][c - 1][0], dp[r][c - 1][1])
-            else:
-                dp[r][c] = (dp[r][c - 1][0] + arr[c - 1], len(dp[r][c - 1][0] + arr[c - 1]))
+    result = []
 
-    for r in range(size):
-        print(dp[r])
+    def helper(build, index):
+        result.append(build)
 
-    max_value = 0
-    for r in range(size):
-        for c in range(size):
-            max_value = max(max_value, dp[r][c][1])
+        for i in range(index + 1):
+            helper(arr[i] + build, i - 1)
 
-    return max_value
+    size = len(arr)
+    helper('', size - 1)
+    print(result)
+    return 0
 
-    def maxLength(self, arr: List[str]) -> int:
+# recursion, take or not take strategy
+def maxLength(self, arr: List[str]) -> int:
 
-        size = len(arr)
-        dp = [[('', 0) for _ in range(size)] for _ in range(size)]
+    def helper(build, index):
 
-        for r in range(0, size):
-            for c in range(r, size):
-                # print(f'r = {r} c = {c}')
+        if index == size:
+            return len(build)
 
-                if set(arr[c - 1]) & set(dp[r][c - 1][0]):
-                    print('here')
-                    dp[r][c] = (dp[r][c - 1][0], dp[r][c - 1][1])
-                else:
-                    dp[r][c] = (dp[r][c - 1][0] + arr[c - 1], len(dp[r][c - 1][0] + arr[c - 1]))
+        new_build = build + arr[index]
+        a = helper(build, index + 1)
 
-        for r in range(size):
-            print(dp[r])
+        b = float('-inf')
+        # no overlapping
+        if len(set(new_build)) == len(build + arr[index]):
+            b = helper(build + arr[index], index + 1)
 
-        max_value = 0
-        for r in range(size):
-            for c in range(size):
-                max_value = max(max_value, dp[r][c][1])
+        return max(a, b)
 
-        return max_value
+    size = len(arr)
+    return helper('', 0)
+
+
+# recursion, top down
+def maxLength(self, arr: List[str]) -> int:
+
+    # if the input has an item, which has duplicated chars
+    new_arr = []
+    for item in arr:
+        if len(set(item)) == len(item):
+            new_arr.append(item)
+    arr = new_arr
+
+    def helper(build, index):
+        if index == -1:
+            return len(build)
+
+        # overlapping:
+        if set(build) & set(arr[index]):
+            return helper(build, index - 1)
+        else:
+            # take or not take
+            a = helper(build, index - 1)
+            b = helper(arr[index] + build, index - 1)
+            return max(a, b)
+
+    size = len(arr)
+    return helper('', size - 1)
+
