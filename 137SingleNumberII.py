@@ -31,3 +31,6 @@ class Solution:
             print(f'num = {num} seen_once = {seen_once} seen_twice = {seen_twice}')
 
         return seen_once
+
+    def singleNumber(self, nums: List[int]) -> int:
+        return (3 * sum(set(nums)) - sum(nums)) // 2
