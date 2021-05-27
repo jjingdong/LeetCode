@@ -109,30 +109,32 @@ class Solution:
     def numDecodings(self, s: str) -> int:
 
         size = len(s)
-        dp = [0] * size
+        dp = [0] * (size+1)
         dp[0] = 1
-
+        
         for index in range(1, size+1):
-
-            i = index - 1
-
-            digit = int(s[i])
+            
+            i = index-1
+            
             count1 = 0
+            digit = int(s[i])
             if digit > 0:
-                count1 = dp[i-1]
-
+                count1 = dp[index-1]
+            
             count2 = 0
             if i > 0:
                 digits = int(s[i-1:i+1])
-                if 9 < digits < 27:
-                    count2 = dp[i-2]
-
-            dp[i] = count1 + count2
-
+                if 10 <= digits <= 26:
+                    count2 = dp[index-2]
+            
+            dp[index] = count1 + count2
+        
+        
+        # print(dp)
         return dp[-1]
 '''
 
-'''
+
     # Time O(N) Space O(N)
     # Recursion + Memorization
     def numDecodings(self, s: str) -> int:
@@ -162,7 +164,7 @@ class Solution:
 
         cache = {}
         return helper(len(s)-1)
-'''
+
 
 '''
     # Time Limit Exceeded
