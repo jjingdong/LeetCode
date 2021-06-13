@@ -48,6 +48,13 @@ class Solution:
 
         return ss == size_s
 
+    def isSubsequence(self, s: str, t: str) -> bool:
+
+        for char in s:
+            if char not in iter(t):
+                return False
+        return True
+
 
 '''
     # Time O(T) Space O(1), runtime = 36 ms
