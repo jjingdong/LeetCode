@@ -81,6 +81,29 @@ class Solution:
         # print(dp)
         return dp[-1][-1]
 
+    def minDistance(self, word2: str, word1: str) -> int:
+
+        if not word1 and not word2: return 0
+
+        col_size = len(word1)
+        size = len(word2)
+        dp = [[0 for _ in range(col_size + 1)] for _ in range(size + 1)]
+
+        for i in range(size + 1):
+            dp[i][0] = i
+
+        for c in range(col_size + 1):
+            dp[0][c] = c
+
+        for r in range(1, size + 1):
+            for c in range(1, col_size + 1):
+                if word1[c - 1] == word2[r - 1]:
+                    dp[r][c] = dp[r - 1][c - 1]
+                else:
+                    dp[r][c] = min(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) + 1
+
+        print(dp)
+        return dp[-1][-1]
 
 
     # Time O(MN), M = length of word1, N = length of word2
@@ -114,6 +137,38 @@ class Solution:
         cache = {}
         # cache = {(i,j): counter}
         return helper(0, 0)
+
+
+
+    def minDistance(self, word1: str, word2: str) -> int:
+
+        def helper(i, j):
+            # base case
+            if i == -1 and j == -1:
+                return 0
+            if i == -1:
+                return j + 1
+            if j == -1:
+                return i + 1
+
+            # recursive case
+            key = (i, j)
+            if key in cache:
+                return cache[key]
+
+            if word1[i] == word2[j]:
+                cache[(i, j)] = helper(i - 1, j - 1)
+                return cache[(i, j)]
+            else:
+                insert = 1 + helper(i, j - 1)
+                delete = 1 + helper(i - 1, j)
+                replace = 1 + helper(i - 1, j - 1)
+                cache[(i, j)] = min(insert, delete, replace)
+                return cache[(i, j)]
+
+        cache = {}
+        # cache = {(i,j): counter}
+        return helper(len(word1) - 1, len(word2) - 1)
 
 
 '''
