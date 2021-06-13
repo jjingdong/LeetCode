@@ -36,6 +36,31 @@ class Solution:
 
         return n & (n - 1) == 0
 
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n == 0:
+            return False
+        while n % 2 == 0:
+            n /= 2
+        return n == 1
+
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n == 0:
+            return False
+        if n == 1:
+            return True
+        if n % 2 != 0:
+            return False
+        return n % 2 == 0 and self.isPowerOfTwo(n / 2)
+
+    def isPowerOfTwo(self, n: int) -> bool:
+
+        if n < 1: return False
+
+        a = 1
+        while a < n:
+            a = a << 1
+
+        return n == a
 
 '''
     # Time O(1) Space O(1), runtime = 24 ms
