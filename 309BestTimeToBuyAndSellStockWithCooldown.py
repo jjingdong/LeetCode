@@ -39,6 +39,22 @@ class Solution:
         return profits[-1]
 
 
+def maxProfit(self, prices: List[int]) -> int:
+
+    if not prices: return 0
+
+    profit = [0] * len(prices)
+    diff = -prices[0]
+
+    for i in range(1, len(prices)):
+        diff = prices[i] - prices[i - 1]
+        cooldown = 0 if i - 2 < 0 else profit[i - 1]
+        profit[i] = max(profit[i - 1], cooldown + diff)
+    return profit[-1]
+
+
+
+
 '''   
     # Time O(N) Space O(1), runtime = 44 ms
     # From solution
