@@ -48,7 +48,6 @@ secret exists in wordlist.
 numguesses == 10
 '''
 
-
 # """
 # This is Master's API interface.
 # You should not implement it, or speculate about its implementation
@@ -64,8 +63,8 @@ class Solution:
     # Time O(1) Space O(1), 10/100 = 10% -> chance to be right
     def findSecretWord(self, wordlist: List[str], master: 'Master') -> None:
 
-        for i in range(10):
-            if master.guess(cur) == 6:
+        for w in wordlist:
+            if master.guess(w) == 6:
                 break
 
     # Solution II, pick 10 random numbers
@@ -125,16 +124,45 @@ class Solution:
 
         # Solution IIII
         # Time O() Space O()
-        # From someone else's solution
+        # Calculate occurance
         def findSecretWord(self, wordlist: List[str], master: 'Master') -> None:
 
-            def match(w1, w2):
-                return sum(i == j for i, j in zip(w1, w2))
+            def similar(w1, w2):
+                count = 0
+                for i in range(6):
+                    if w1[i] == w2[i]:
+                        count += 1
+                return count
 
+            size = len(wordlist)
+            counts = []
             n = 0
-            while n < 6:
-                count = [collections.Counter(w[i] for w in wordlist) for i in range(6)]
-                guess = max(wordlist, key=lambda w: sum(count[i][c] for i, c in enumerate(w)))
-                n = master.guess(guess)
-                wordlist = [w for w in wordlist if match(w, guess) == n]
+            while n != 6:
 
+                for i in range(6):
+                    lst = []
+                    for w in wordlist:
+                        lst.append(w[i])
+                    c_dict = collections.Counter(lst)
+                    counts.append(c_dict)
+
+                top_score = 0
+                top_word = None
+                for w in wordlist:
+                    score = 0
+                    for i in range(6):
+                        cur = w[i]
+                        score += counts[i][w[i]]
+                    if top_score < score:
+                        top_score = score
+                        top_word = w
+
+                # print(top_word)
+                n = master.guess(top_word)
+
+                wordlist_new = []
+                for w in wordlist:
+
+                    if similar(w, top_word) == n:
+                        wordlist_new.append(w)
+                wordlist = wordlist_new
