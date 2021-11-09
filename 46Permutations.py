@@ -58,5 +58,24 @@ class Solution:
         mutation([], nums)
         return results
 '''
+
+#solution III
+def permute(self, nums: List[int]) -> List[List[int]]:
+    def helper(index):
+
+        # base case
+        if index == len(nums):
+            results.append(nums[:])
+            return
+
+        # recursive case
+        for i in range(index, len(nums)):
+            nums[index], nums[i] = nums[i], nums[index]
+            helper(index + 1)
+            nums[index], nums[i] = nums[i], nums[index]
+
+    results = []
+    helper(0)
+    return results
         
     
