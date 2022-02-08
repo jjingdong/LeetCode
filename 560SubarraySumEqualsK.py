@@ -17,12 +17,57 @@ Note: 
 
 class Solution:
 
-    # Solution I: Cumulated Sum --- Time Limit exceeded
-    # sum[i:j] = accumulated_sum[j] - accumulated_sum[i-1]
-    #
-    # Solution II: HashMap
+    # Solution I: Brute Force, Time O(N^3) Space O(1)
 
-    # Time O(N) Space O(N), runtime = 140 ms
+    # Solution II: Accumulated Sum --- Time Limit exceeded  Time O(N^2) Space O(N)
+    # sum[i:j] = accumulated_sum[j] - accumulated_sum[i-1]
+
+    # Solution III: Accumulated Sum, Time O(N^2) Space O(1), TLE
+
+    # Solution IV: HashMap, Time O(N) Space O(N)
+
+    # Solution II: Acumulated Sum --- Time Limit exceeded
+    # Time O(N^2) Space O(N), TLE
+    def subarraySum(self, nums: List[int], k: int) -> int:
+
+        result = 0
+        value = 0
+        sums = nums[:]
+        for i in range(1, len(nums)):
+            sums[i] = sums[i - 1] + nums[i]
+
+        count = 0
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                if i == 0:
+                    count = sums[j]
+                else:
+                    count = sums[j] - sums[i - 1]
+                if count == k:
+                    result += 1
+
+        return result
+
+    # Solution III: Accumulated Sum, Time O(N^2) Space O(1), TLE
+    # Time O(N^2) Space O(1), TLE
+    def subarraySum(self, nums: List[int], k: int) -> int:
+
+        if nums is None: return None
+
+        result = 0
+        for start in range(len(nums)):
+            count = 0
+            i = start
+            while i <= len(nums) - 1:
+                count += nums[i]
+                if count == k:
+                    result += 1
+                i += 1
+
+        return result
+
+    # Solution IV: HashMap, Time O(N) Space O(N)
+    # Time O(N) Space O(N)
     def subarraySum(self, nums: List[int], k: int) -> int:
 
         sum_count_dict = {0: 1}
@@ -37,46 +82,4 @@ class Solution:
                 sum_count_dict[s] = 1
         return count
 
-
-'''
-    # Time O(N^2) Space O(N), TLE
-    def subarraySum(self, nums: List[int], k: int) -> int:
-
-        result = 0
-        value = 0
-        sums = nums[:]
-        for i in range(1, len(nums)):
-            sums[i] = sums[i-1] + nums[i]
-
-        count = 0
-        for i in range(len(nums)):
-            for j in range(i, len(nums)):
-                if i == 0:
-                    count = sums[j]
-                else:
-                    count = sums[j] - sums[i-1]
-                if count == k:
-                    result += 1
-
-        return result
-'''
-
-'''
-    # Time O(N^2) Space O(1), TLE
-    def subarraySum(self, nums: List[int], k: int) -> int:
-
-        if nums is None: return None
-
-        result = 0
-        for start in range(len(nums)):
-            count = 0
-            i = start
-            while i <= len(nums) - 1:
-                count += nums[i]
-                if count == k: 
-                    result += 1
-                i += 1
-
-        return result
-'''
 
