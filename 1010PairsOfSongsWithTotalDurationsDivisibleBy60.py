@@ -42,7 +42,7 @@ class Solution:
     #         time[j] = 150
     #         30+150 = 180//60 = 3
 
-    #     brute force
+    #     Solution I: Brute Force
     #     Time O(N^2) Space O(1)
     #         [30,20,150,100,40]
     #          i = 0
@@ -76,6 +76,63 @@ class Solution:
 
     #     hashmap = {30:[0,2], 20:[1], 40:[3,4]}
 
+    # Solution II, use a hashmap
+    # Time O(N) Space O(1), since the max dict size is 60
+    # runtime = 232 ms
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+
+        if not time: return 0
+
+        count = 0
+        t_dict = collections.defaultdict(int)
+        for t in time:
+
+            remainder = t % 60
+            if remainder == 0:
+                count += t_dict[0]
+            else:
+                count += t_dict[60 - remainder]
+
+            t_dict[t % 60] += 1
+
+        return count
+
+    # Solution III, use a hashmap
+    # Time O(N) Space O(1), since the max dict size is 60
+    # runtime = 348 ms
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+
+        if not time: return 0
+
+        count = 0
+        t_dict = collections.defaultdict(int)
+        for t in time:
+            remainder = -t % 60
+            count += t_dict[remainder]
+
+            t_dict[t % 60] += 1
+
+        return count
+
+    # Solution IV, use an array
+    # Time O(N), Space O(1)
+    # runtime = 408ms
+    def numPairsDivisibleBy60(self, time: List[int]) -> int:
+
+        remainders = [0] * 60
+        count = 0
+        for t in time:
+            re = t % 60
+            if re == 0:
+                count += remainders[0]
+            else:
+                count += remainders[60 - re]
+
+            remainders[t % 60] += 1
+        return count
+
+    # Solution V, use a hashmap
+    # Time O(N) Space O(N) -> Space O(1), since the max dict size is 60
     #     hashmap = {30:2, 20:1, 40:2}
 
     #     30 -> looking for (60-30), look for itself
@@ -114,9 +171,6 @@ class Solution:
     #          30, 30, 30 -> 3 comb
     #          30, 30, 30, 30 -> 10 comb
     #          30, 30, 30, 30, 30 -> 15 comb
-
-    # Time O(N) Space O(N) -> Space O(1), since the max dict size is 60
-    # runtime = 220 ms
     def numPairsDivisibleBy60(self, time: List[int]) -> int:
 
         if not time: return 0
@@ -135,62 +189,3 @@ class Solution:
 
         return int(count)
 
-
-'''
-    # Time O(N) Space O(1), since the max dict size is 60
-    # runtime = 348 ms
-    def numPairsDivisibleBy60(self, time: List[int]) -> int:
-
-        if not time: return 0
-
-        count = 0
-        t_dict = collections.defaultdict(int)
-        for t in time:
-
-            remainder = -t % 60
-            count += t_dict[remainder]
-
-            t_dict[t % 60] += 1 
-
-        return count
-'''
-
-'''
-    #Time O(N), Space O(1)
-    #runtime = 408ms
-    def numPairsDivisibleBy60(self, time: List[int]) -> int:
-
-        remainders = [0] * 60
-        count = 0
-        for t in time:
-            re = t % 60
-            if re == 0:
-                count += remainders[0]
-            else:
-                count += remainders[60-re]
-
-            remainders[t % 60] += 1
-        return count
-'''
-
-'''                
-    # Time O(N) Space O(1), since the max dict size is 60
-    # runtime = 232 ms
-    def numPairsDivisibleBy60(self, time: List[int]) -> int:
-
-        if not time: return 0
-
-        count = 0
-        t_dict = collections.defaultdict(int)
-        for t in time:
-
-            remainder = t % 60
-            if remainder == 0:
-                count += t_dict[0]
-            else:
-                count += t_dict[60-remainder]
-
-            t_dict[t % 60] += 1 
-
-        return count
-'''
